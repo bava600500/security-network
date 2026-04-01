@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سكريبت الحلقة الثانية – SMART TIME</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0b1120;
+    font-family: 'Tajawal', sans-serif;
+    color: #e2eeff;
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .logo-area { text-align: center; margin-bottom: 12px; }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #0d1f3c, #102a50);
+    border: 1px solid #1e3d6e;
+    border-radius: 20px;
+    padding: 18px 36px;
+  }
+
+  .logo-icon {
+    width: 54px; height: 54px;
+    background: linear-gradient(135deg, #00d4ff, #0088cc);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+  }
+
+  .logo-text .name { font-size: 1.7rem; font-weight: 900; color: #fff; line-height: 1.1; }
+  .logo-text .name span { color: #00d4ff; }
+  .logo-text .sub { font-size: 12px; color: #4a7cb5; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+
+  .instructor { text-align: center; margin-bottom: 44px; margin-top: 16px; }
+  .instructor p { color: #4a7cb5; font-size: 14px; margin-bottom: 4px; letter-spacing: 1px; }
+  .instructor h2 { font-size: 1.25rem; font-weight: 700; color: #a0c4f1; }
+
+  .card {
+    background: #111d33;
+    border: 1px solid #1a3060;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-title {
+    background: #0d1a30;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #00d4ff;
+    border-bottom: 1px solid #1a3060;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title .dot { width: 8px; height: 8px; background: #00d4ff; border-radius: 50%; flex-shrink: 0; }
+
+  .card-body {
+    padding: 22px 24px;
+    font-size: 19px;
+    line-height: 2.1;
+    color: #dbeafe;
+  }
+
+  .card-body p { margin-bottom: 12px; }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  em { color: #00d4ff; font-style: normal; font-weight: 600; }
+  strong { color: #ffd700; font-weight: 700; }
+
+  .sep { height: 1px; background: #1a3060; margin: 14px 0; }
+
+  .card.final { border-color: #1a4030; background: #0d1e18; }
+  .card.final .card-title { background: #0a1a14; color: #00ff88; border-bottom-color: #1a4030; }
+  .card.final .card-title .dot { background: #00ff88; }
+  .card.final .card-body { text-align: center; font-size: 20px; color: #a0f0c0; padding: 30px 24px; }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 24px; }
+    .card { border: 1px solid #ccc; background: #fff; }
+    .card-title { background: #f0f4ff; color: #003399; border-bottom: 1px solid #ccc; }
+    .card-body { color: #111; }
+    .card.final { background: #f0fff8; border-color: #ccc; }
+    .card.final .card-title { background: #e0fff0; color: #006633; }
+    .card.final .card-body { color: #005522; }
+    em { color: #0044cc; }
+    strong { color: #cc6600; }
+    .logo { border: 1px solid #ccc; background: #f8f9ff; }
+    .logo-text .name { color: #003; }
+    .logo-text .name span { color: #0055cc; }
+    .logo-icon { background: #0055cc; }
+    .print-btn { display: none; }
+  }
+
+  .print-btn {
+    display: block;
+    margin: 36px auto 0;
+    padding: 13px 36px;
+    background: #00d4ff;
+    color: #0b1120;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  .print-btn:hover { background: #33ddff; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- الشعار -->
+  <div class="logo-area">
+    <div class="logo">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">
+        <div class="name">SMART <span>TIME</span></div>
+        <div class="sub">Academy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- المدرب -->
+  <div class="instructor">
+    <p>المدرب</p>
+    <h2>عباس باسم</h2>
+  </div>
+
+  <!-- البداية -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>البداية</div>
+    <div class="card-body">
+      <p>السلام عليكم ورحمة الله وبركاته، أهلاً وسهلاً بكم مرة ثانية في <em>أكاديمية SMART TIME</em>.</p>
+      <p>أنا عباس باسم، ومعكم في <strong>الحلقة الثانية</strong> من سلسلة الأمن السيبراني.</p>
+      <p>في الحلقة الأولى تكلمنا عن ما هو أمن الشبكات — اليوم رح نعرف: <em>من هو العدو؟</em></p>
+      <p>رح نشوف <strong>أبرز أنواع التهديدات الشبكية</strong> اللي تواجهنا كل يوم.</p>
+    </div>
+  </div>
+
+  <!-- النوع الأول: البرمجيات الخبيثة -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>أولاً — البرمجيات الخبيثة (Malware)</div>
+    <div class="card-body">
+      <p><em>Malware</em> كلمة اختصار لـ Malicious Software — يعني <strong>برنامج مصمم للضرر</strong>.</p>
+      <p>يدخل جهازك بدون ما تحس، ويقدر يسرق بياناتك، يتجسس عليك، أو يدمر ملفاتك.</p>
+      <div class="sep"></div>
+      <p>من أشهر أنواعه:</p>
+      <p>🦠 <em>الفيروسات</em> — تنتشر من جهاز لجهاز مثل فيروس الزكام</p>
+      <p>🔒 <em>Ransomware</em> — يقفل ملفاتك ويطلب فدية عشان يرجعها لك</p>
+      <p>🕵️ <em>Spyware</em> — يتجسس على كل حركاتك بصمت كامل</p>
+    </div>
+  </div>
+
+  <!-- النوع الثاني: التصيد الاحتيالي -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>ثانياً — التصيد الاحتيالي (Phishing)</div>
+    <div class="card-body">
+      <p><em>Phishing</em> هو أكثر هجوم شايع اليوم — والسبب؟ لأنه يستهدف <strong>الإنسان مباشرة</strong>، مو الجهاز.</p>
+      <p>الهاكر يرسل لك رسالة أو إيميل يبدو رسمي — من البنك، أو من الحكومة، أو حتى من صديق.</p>
+      <p>وفيه رابط تضغط عليه وتحط بياناتك... <strong>وخلاص، وقعت في الفخ.</strong></p>
+      <div class="sep"></div>
+      <p>القاعدة الذهبية: <em>أي رسالة تطلب منك بيانات أو تستعجلك — توقف وتحقق.</em></p>
+    </div>
+  </div>
+
+  <!-- النوع الثالث: هجمات DoS -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>ثالثاً — هجمات تعطيل الخدمة (DoS / DDoS)</div>
+    <div class="card-body">
+      <p>تخيّل إن دكانك عنده باب واحد، وجاء ألف شخص يدفعون في نفس الوقت.</p>
+      <p>ما أحد يقدر يدخل، والدكان توقف.</p>
+      <p>هذا بالضبط هو هجوم <em>DoS</em> — الهاكر يغرق السيرفر بطلبات وهمية حتى <strong>يوقفه تماماً</strong>.</p>
+      <div class="sep"></div>
+      <p>و<em>DDoS</em> هو نفس الشيء لكن من آلاف الأجهزة في نفس الوقت — أقوى وأصعب تصده.</p>
+      <p>كثير من المواقع الكبيرة تعرضت له، حتى مواقع حكومية.</p>
+    </div>
+  </div>
+
+  <!-- النوع الرابع: الرجل في المنتصف -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>رابعاً — هجوم الرجل في المنتصف (MITM)</div>
+    <div class="card-body">
+      <p>تخيّل إنك بتكلم صديقك، لكن في شخص ثالث يجلس بينكم، يقرأ كل رسالة، ويعدّل فيها قبل ما توصل.</p>
+      <p>هذا هو <em>Man-in-the-Middle</em>.</p>
+      <div class="sep"></div>
+      <p>يصير كثير على <strong>الشبكات العامة غير المشفّرة</strong> — مثل واي فاي الكافيه أو المطار.</p>
+      <p>الهاكر يجلس على نفس الشبكة ويراقب كل اللي ترسله وتستقبله <em>بدون ما تحس</em>.</p>
+    </div>
+  </div>
+
+  <!-- النوع الخامس: كلمات المرور -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>خامساً — هجمات كلمات المرور</div>
+    <div class="card-body">
+      <p>الهاكر يحاول يخترق حسابك عن طريق تخمين كلمة السر.</p>
+      <div class="sep"></div>
+      <p>🔁 <em>Brute Force</em> — يجرب ملايين التركيبات بسرعة حتى يصيب</p>
+      <p>📋 <em>Dictionary Attack</em> — يستخدم قائمة بكلمات شايعة مثل "123456" و"password"</p>
+      <div class="sep"></div>
+      <p>ولهذا السبب كلمة السر القوية <strong>مو رفاهية — هي خط دفاعك الأول.</strong></p>
+    </div>
+  </div>
+
+  <!-- الخلاصة -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>الخلاصة</div>
+    <div class="card-body">
+      <p>تعلمنا اليوم خمسة أنواع من التهديدات:</p>
+      <p>1️⃣ <em>Malware</em> — برامج مصممة للضرر</p>
+      <p>2️⃣ <em>Phishing</em> — خداع الإنسان مباشرة</p>
+      <p>3️⃣ <em>DoS / DDoS</em> — تعطيل الخدمة بالإغراق</p>
+      <p>4️⃣ <em>MITM</em> — التجسس على الاتصالات</p>
+      <p>5️⃣ <strong>هجمات كلمات المرور</strong> — تخمين واختراق الحسابات</p>
+      <div class="sep"></div>
+      <p>في الحلقة الجاية رح نتكلم عن <em>كيف تحمي نفسك</em> من هذي التهديدات خطوة بخطوة.</p>
+      <p>اشترك في القناة عشان ما تفوتك ولا حلقة، وشاركها لأي شخص تحب تفيده 💙</p>
+    </div>
+  </div>
+
+  <!-- اختتام -->
+  <div class="card final">
+    <div class="card-title"><span class="dot"></span>اختتام</div>
+    <div class="card-body">
+      تمت الحلقة الثانية بحمد الله 🙏
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ طباعة السكريبت</button>
+
+</div>
+</body>
+</html>
