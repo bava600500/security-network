@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سكريبت الحلقة الثالثة – SMART TIME</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0b1120;
+    font-family: 'Tajawal', sans-serif;
+    color: #e2eeff;
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .page { max-width: 680px; margin: 0 auto; }
+
+  .logo-area { text-align: center; margin-bottom: 12px; }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #0d1f3c, #102a50);
+    border: 1px solid #1e3d6e;
+    border-radius: 20px;
+    padding: 18px 36px;
+  }
+
+  .logo-icon {
+    width: 54px; height: 54px;
+    background: linear-gradient(135deg, #00d4ff, #0088cc);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+  }
+
+  .logo-text .name { font-size: 1.7rem; font-weight: 900; color: #fff; line-height: 1.1; }
+  .logo-text .name span { color: #00d4ff; }
+  .logo-text .sub { font-size: 12px; color: #4a7cb5; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+
+  .instructor { text-align: center; margin-bottom: 44px; margin-top: 16px; }
+  .instructor p { color: #4a7cb5; font-size: 14px; margin-bottom: 4px; letter-spacing: 1px; }
+  .instructor h2 { font-size: 1.25rem; font-weight: 700; color: #a0c4f1; }
+
+  .card {
+    background: #111d33;
+    border: 1px solid #1a3060;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-title {
+    background: #0d1a30;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #00d4ff;
+    border-bottom: 1px solid #1a3060;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title .dot { width: 8px; height: 8px; background: #00d4ff; border-radius: 50%; flex-shrink: 0; }
+
+  .card-body {
+    padding: 22px 24px;
+    font-size: 19px;
+    line-height: 2.1;
+    color: #dbeafe;
+  }
+
+  .card-body p { margin-bottom: 12px; }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  em { color: #00d4ff; font-style: normal; font-weight: 600; }
+  strong { color: #ffd700; font-weight: 700; }
+
+  .sep { height: 1px; background: #1a3060; margin: 14px 0; }
+
+  .card.final { border-color: #1a4030; background: #0d1e18; }
+  .card.final .card-title { background: #0a1a14; color: #00ff88; border-bottom-color: #1a4030; }
+  .card.final .card-title .dot { background: #00ff88; }
+  .card.final .card-body { text-align: center; font-size: 20px; color: #a0f0c0; padding: 30px 24px; }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 24px; }
+    .card { border: 1px solid #ccc; background: #fff; }
+    .card-title { background: #f0f4ff; color: #003399; border-bottom: 1px solid #ccc; }
+    .card-body { color: #111; }
+    .card.final { background: #f0fff8; border-color: #ccc; }
+    .card.final .card-title { background: #e0fff0; color: #006633; }
+    .card.final .card-body { color: #005522; }
+    em { color: #0044cc; }
+    strong { color: #cc6600; }
+    .logo { border: 1px solid #ccc; background: #f8f9ff; }
+    .logo-text .name { color: #003; }
+    .logo-text .name span { color: #0055cc; }
+    .logo-icon { background: #0055cc; }
+    .print-btn { display: none; }
+  }
+
+  .print-btn {
+    display: block;
+    margin: 36px auto 0;
+    padding: 13px 36px;
+    background: #00d4ff;
+    color: #0b1120;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  .print-btn:hover { background: #33ddff; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- الشعار -->
+  <div class="logo-area">
+    <div class="logo">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">
+        <div class="name">SMART <span>TIME</span></div>
+        <div class="sub">Academy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- المدرب -->
+  <div class="instructor">
+    <p>المدرب</p>
+    <h2>عباس باسم</h2>
+  </div>
+
+  <!-- البداية -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>البداية</div>
+    <div class="card-body">
+      <p>السلام عليكم ورحمة الله وبركاته، أهلاً وسهلاً بكم في <em>أكاديمية SMART TIME</em>.</p>
+      <p>أنا عباس باسم، ومعكم في <strong>الحلقة الثالثة</strong> من سلسلة الأمن السيبراني.</p>
+      <p>اليوم رح نتكلم عن موضوع مهم جداً وأساسي لأي شخص يريد يفهم الشبكات: <em>نموذج OSI والأمان</em>.</p>
+    </div>
+  </div>
+
+  <!-- ما هو نموذج OSI -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>ما هو نموذج OSI؟</div>
+    <div class="card-body">
+      <p><em>OSI</em> اختصار لـ Open Systems Interconnection — وهو نموذج يشرح <strong>كيف تنتقل البيانات عبر الشبكة</strong>.</p>
+      <p>تخيّل إنك ترسل رسالة لصديقك — هذي الرسالة تمر بـ <strong>7 طبقات</strong> قبل ما توصل.</p>
+      <p>كل طبقة تسوي شغلة معينة، ولكل طبقة <em>تهديداتها الخاصة</em> وأدوات حمايتها.</p>
+    </div>
+  </div>
+
+  <!-- الطبقات السبع -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>الطبقات السبع بكل بساطة</div>
+    <div class="card-body">
+      <p>7️⃣ <em>Application</em> — التطبيق اللي تستخدمه مثل المتصفح أو الإيميل</p>
+      <p>6️⃣ <em>Presentation</em> — تشفير البيانات وتنسيقها</p>
+      <p>5️⃣ <em>Session</em> — إدارة الجلسة بينك وبين السيرفر</p>
+      <p>4️⃣ <em>Transport</em> — تقسيم البيانات وضمان وصولها</p>
+      <p>3️⃣ <em>Network</em> — تحديد المسار — هنا يشتغل الـ IP</p>
+      <p>2️⃣ <em>Data Link</em> — نقل البيانات بين جهازين متجاورين</p>
+      <p>1️⃣ <em>Physical</em> — الكابلات والإشارات والأسلاك الفعلية</p>
+    </div>
+  </div>
+
+  <!-- الأمان في كل طبقة -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>الأمان في كل طبقة</div>
+    <div class="card-body">
+      <p>كل طبقة ممكن تُهاجَم، وكل طبقة عندها طريقة حماية:</p>
+      <div class="sep"></div>
+      <p>🔴 <strong>الطبقة الأولى — Physical:</strong></p>
+      <p>التهديد: شخص يوصل جهاز غريب بالشبكة جسدياً.</p>
+      <p>الحماية: <em>قفل الغرف وتأمين الأجهزة فيزيائياً</em>.</p>
+      <div class="sep"></div>
+      <p>🔴 <strong>الطبقة الثالثة — Network:</strong></p>
+      <p>التهديد: هجمات توجيه البيانات مثل <em>IP Spoofing</em>.</p>
+      <p>الحماية: <em>جدار الحماية Firewall</em>.</p>
+      <div class="sep"></div>
+      <p>🔴 <strong>الطبقة الرابعة — Transport:</strong></p>
+      <p>التهديد: هجمات <em>DoS</em> على المنافذ Ports.</p>
+      <p>الحماية: <em>فلترة المنافذ وأنظمة الكشف عن الاختراق IDS</em>.</p>
+      <div class="sep"></div>
+      <p>🔴 <strong>الطبقة السادسة — Presentation:</strong></p>
+      <p>التهديد: بيانات غير مشفرة يقدر أي أحد يقرأها.</p>
+      <p>الحماية: <em>بروتوكول TLS/SSL</em> — اللي تشوفه بـ HTTPS.</p>
+      <div class="sep"></div>
+      <p>🔴 <strong>الطبقة السابعة — Application:</strong></p>
+      <p>التهديد: هجمات <em>Phishing</em> و <em>SQL Injection</em>.</p>
+      <p>الحماية: <em>WAF</em> وتحديثات التطبيقات باستمرار.</p>
+    </div>
+  </div>
+
+  <!-- لماذا يهمنا -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>ليش يهمنا نموذج OSI؟</div>
+    <div class="card-body">
+      <p>لأنه يخليك تفكر بطريقة المحترفين — لما يصير اختراق، أول سؤال هو: <strong>في أي طبقة صار؟</strong></p>
+      <p>لما تعرف الطبقة، تعرف التهديد، وتعرف <em>الحل</em>.</p>
+      <p>نموذج OSI هو <strong>خريطة الأمن السيبراني</strong> — بدونه تتوه.</p>
+    </div>
+  </div>
+
+  <!-- الخلاصة -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>الخلاصة</div>
+    <div class="card-body">
+      <p>✅ نموذج OSI = 7 طبقات لنقل البيانات</p>
+      <p>✅ كل طبقة لها تهديداتها وأدوات حمايتها</p>
+      <p>✅ فهم OSI = أساس أي متخصص أمن سيبراني</p>
+      <p>✅ من الكابل الفيزيائي وصولاً للتطبيق — <em>كل شي ممكن يُهاجَم</em></p>
+    </div>
+  </div>
+
+  <!-- اختتام -->
+  <div class="card final">
+    <div class="card-title"><span class="dot"></span>اختتام</div>
+    <div class="card-body">
+      تمت الحلقة الثالثة بحمد الله 🙏
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ طباعة السكريبت</button>
+
+</div>
+</body>
+</html>
