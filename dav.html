@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>سكريبت الحلقة الثالثة – SMART TIME</title>
+<title>سكريبت الحلقة الرابعة – SMART TIME</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -147,70 +147,74 @@
     <div class="card-title"><span class="dot"></span>البداية</div>
     <div class="card-body">
       <p>السلام عليكم ورحمة الله وبركاته، أهلاً وسهلاً بكم في <em>أكاديمية SMART TIME</em>.</p>
-      <p>أنا عباس باسم، ومعكم في <strong>الحلقة الثالثة</strong> من سلسلة الأمن السيبراني.</p>
-      <p>اليوم رح نتكلم عن موضوع مهم جداً وأساسي لأي شخص يريد يفهم الشبكات: <em>نموذج OSI والأمان</em>.</p>
+      <p>أنا عباس باسم، ومعكم في <strong>الحلقة الرابعة</strong> من سلسلة الأمن السيبراني.</p>
+      <p>اليوم رح نتكلم عن الأساس اللي قام عليه الإنترنت كله: <em>بروتوكولات TCP/IP</em>.</p>
     </div>
   </div>
 
-  <!-- ما هو نموذج OSI -->
+  <!-- ما هو البروتوكول -->
   <div class="card">
-    <div class="card-title"><span class="dot"></span>ما هو نموذج OSI؟</div>
+    <div class="card-title"><span class="dot"></span>أول شي — ما هو البروتوكول؟</div>
     <div class="card-body">
-      <p><em>OSI</em> اختصار لـ Open Systems Interconnection — وهو نموذج يشرح <strong>كيف تنتقل البيانات عبر الشبكة</strong>.</p>
-      <p>تخيّل إنك ترسل رسالة لصديقك — هذي الرسالة تمر بـ <strong>7 طبقات</strong> قبل ما توصل.</p>
-      <p>كل طبقة تسوي شغلة معينة، ولكل طبقة <em>تهديداتها الخاصة</em> وأدوات حمايتها.</p>
+      <p>البروتوكول ببساطة هو: <em>مجموعة قواعد يتفق عليها جهازان عشان يتكلمان ببعض</em>.</p>
+      <p>زي ما البشر يتفقون على لغة — عربي مع عربي، إنجليزي مع إنجليزي.</p>
+      <p>الأجهزة كذلك، تحتاج <strong>لغة مشتركة</strong> عشان تتفاهم — وهذي اللغة هي البروتوكول.</p>
     </div>
   </div>
 
-  <!-- الطبقات السبع -->
+  <!-- ما هو TCP -->
   <div class="card">
-    <div class="card-title"><span class="dot"></span>الطبقات السبع بكل بساطة</div>
+    <div class="card-title"><span class="dot"></span>ما هو TCP؟</div>
     <div class="card-body">
-      <p>7️⃣ <em>Application</em> — التطبيق اللي تستخدمه مثل المتصفح أو الإيميل</p>
-      <p>6️⃣ <em>Presentation</em> — تشفير البيانات وتنسيقها</p>
-      <p>5️⃣ <em>Session</em> — إدارة الجلسة بينك وبين السيرفر</p>
-      <p>4️⃣ <em>Transport</em> — تقسيم البيانات وضمان وصولها</p>
-      <p>3️⃣ <em>Network</em> — تحديد المسار — هنا يشتغل الـ IP</p>
-      <p>2️⃣ <em>Data Link</em> — نقل البيانات بين جهازين متجاورين</p>
-      <p>1️⃣ <em>Physical</em> — الكابلات والإشارات والأسلاك الفعلية</p>
+      <p><em>TCP</em> اختصار لـ Transmission Control Protocol.</p>
+      <p>هو البروتوكول المسؤول عن <strong>إرسال البيانات بشكل مضمون وكامل</strong>.</p>
+      <p>تخيّل إنك ترسل كتاب لصديقك مقسّم لـ 100 صفحة — TCP يضمن إن كل الصفحات وصلت، وبالترتيب الصحيح.</p>
+      <div class="sep"></div>
+      <p>لو ضاعت صفحة في الطريق — <em>TCP يطلبها مرة ثانية تلقائياً</em>.</p>
+      <p>لهذا يُستخدم في كل شي يحتاج دقة: <strong>المواقع، الإيميل، تحميل الملفات</strong>.</p>
     </div>
   </div>
 
-  <!-- الأمان في كل طبقة -->
+  <!-- ما هو IP -->
   <div class="card">
-    <div class="card-title"><span class="dot"></span>الأمان في كل طبقة</div>
+    <div class="card-title"><span class="dot"></span>ما هو IP؟</div>
     <div class="card-body">
-      <p>كل طبقة ممكن تُهاجَم، وكل طبقة عندها طريقة حماية:</p>
+      <p><em>IP</em> اختصار لـ Internet Protocol.</p>
+      <p>هو المسؤول عن <strong>العنوان</strong> — يعني كيف يعرف الجهاز وين يرسل البيانات.</p>
+      <p>كل جهاز متصل بالإنترنت عنده <em>عنوان IP</em> خاص فيه — مثل رقم بيتك بالضبط.</p>
       <div class="sep"></div>
-      <p>🔴 <strong>الطبقة الأولى — Physical:</strong></p>
-      <p>التهديد: شخص يوصل جهاز غريب بالشبكة جسدياً.</p>
-      <p>الحماية: <em>قفل الغرف وتأمين الأجهزة فيزيائياً</em>.</p>
-      <div class="sep"></div>
-      <p>🔴 <strong>الطبقة الثالثة — Network:</strong></p>
-      <p>التهديد: هجمات توجيه البيانات مثل <em>IP Spoofing</em>.</p>
-      <p>الحماية: <em>جدار الحماية Firewall</em>.</p>
-      <div class="sep"></div>
-      <p>🔴 <strong>الطبقة الرابعة — Transport:</strong></p>
-      <p>التهديد: هجمات <em>DoS</em> على المنافذ Ports.</p>
-      <p>الحماية: <em>فلترة المنافذ وأنظمة الكشف عن الاختراق IDS</em>.</p>
-      <div class="sep"></div>
-      <p>🔴 <strong>الطبقة السادسة — Presentation:</strong></p>
-      <p>التهديد: بيانات غير مشفرة يقدر أي أحد يقرأها.</p>
-      <p>الحماية: <em>بروتوكول TLS/SSL</em> — اللي تشوفه بـ HTTPS.</p>
-      <div class="sep"></div>
-      <p>🔴 <strong>الطبقة السابعة — Application:</strong></p>
-      <p>التهديد: هجمات <em>Phishing</em> و <em>SQL Injection</em>.</p>
-      <p>الحماية: <em>WAF</em> وتحديثات التطبيقات باستمرار.</p>
+      <p>بدون IP، البيانات تتشتت ولا تعرف وين تروح.</p>
+      <p>TCP يضمن <em>إن الطرد وصل كامل</em> — IP يضمن <em>إنه وصل للعنوان الصحيح</em>.</p>
     </div>
   </div>
 
-  <!-- لماذا يهمنا -->
+  <!-- كيف يشتغلان معاً -->
   <div class="card">
-    <div class="card-title"><span class="dot"></span>ليش يهمنا نموذج OSI؟</div>
+    <div class="card-title"><span class="dot"></span>كيف يشتغلان معاً؟</div>
     <div class="card-body">
-      <p>لأنه يخليك تفكر بطريقة المحترفين — لما يصير اختراق، أول سؤال هو: <strong>في أي طبقة صار؟</strong></p>
-      <p>لما تعرف الطبقة، تعرف التهديد، وتعرف <em>الحل</em>.</p>
-      <p>نموذج OSI هو <strong>خريطة الأمن السيبراني</strong> — بدونه تتوه.</p>
+      <p>لما تفتح موقع الآن، هذا اللي يصير في الخلفية:</p>
+      <div class="sep"></div>
+      <p>1️⃣ جهازك يقسّم طلبك لحزم صغيرة — <em>هذا شغل TCP</em></p>
+      <p>2️⃣ كل حزمة تاخذ عنوان المصدر وعنوان الوجهة — <em>هذا شغل IP</em></p>
+      <p>3️⃣ الحزم تسافر عبر الشبكة وتوصل للسيرفر</p>
+      <p>4️⃣ السيرفر يجمّع الحزم ويرد عليك — <em>وتشوف الموقع في ثوانٍ</em></p>
+      <div class="sep"></div>
+      <p>كل هذا يصير <strong>في أجزاء من الثانية</strong> — كل مرة تفتح أي موقع.</p>
+    </div>
+  </div>
+
+  <!-- علاقة TCP/IP بالأمن -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>علاقة TCP/IP بالأمن السيبراني</div>
+    <div class="card-body">
+      <p>TCP/IP صُمِّم أصلاً للتواصل — <strong>مو للأمان</strong>.</p>
+      <p>ولهذا يستغله الهاكرز بطرق مختلفة:</p>
+      <div class="sep"></div>
+      <p>⚠️ <em>IP Spoofing</em> — الهاكر يزوّر عنوان IP يبدو إنه مصدر موثوق</p>
+      <p>⚠️ <em>SYN Flood</em> — إغراق السيرفر بطلبات اتصال وهمية حتى يتعطل</p>
+      <p>⚠️ <em>Packet Sniffing</em> — التقاط الحزم وقراءة محتواها لو ما كانت مشفرة</p>
+      <div class="sep"></div>
+      <p>الحل؟ <em>التشفير دائماً</em> — لهذا HTTPS أهم من HTTP، لأنه يشفّر الحزم قبل ما تنطلق.</p>
     </div>
   </div>
 
@@ -218,10 +222,10 @@
   <div class="card">
     <div class="card-title"><span class="dot"></span>الخلاصة</div>
     <div class="card-body">
-      <p>✅ نموذج OSI = 7 طبقات لنقل البيانات</p>
-      <p>✅ كل طبقة لها تهديداتها وأدوات حمايتها</p>
-      <p>✅ فهم OSI = أساس أي متخصص أمن سيبراني</p>
-      <p>✅ من الكابل الفيزيائي وصولاً للتطبيق — <em>كل شي ممكن يُهاجَم</em></p>
+      <p>✅ البروتوكول = لغة مشتركة بين الأجهزة</p>
+      <p>✅ <em>TCP</em> = يضمن وصول البيانات كاملة وبالترتيب</p>
+      <p>✅ <em>IP</em> = يحدد عنوان المرسل والمستقبل</p>
+      <p>✅ TCP/IP صُمِّم للتواصل — <strong>مو للأمان</strong> — ولهذا التشفير ضروري</p>
     </div>
   </div>
 
@@ -229,7 +233,7 @@
   <div class="card final">
     <div class="card-title"><span class="dot"></span>اختتام</div>
     <div class="card-body">
-      تمت الحلقة الثالثة بحمد الله 🙏
+      تمت الحلقة الرابعة بحمد الله 🙏
     </div>
   </div>
 
