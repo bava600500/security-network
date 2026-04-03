@@ -3,728 +3,398 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الحلقة الخامسة – تحليل الحزم | SMART TIME</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>سكريبت الحلقة السادسة – SMART TIME</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --bg: #070d1a;
-    --panel: #0d1625;
-    --card: #111d33;
-    --border: #1a3060;
-    --accent: #00d4ff;
-    --green: #00ff88;
-    --yellow: #ffd700;
-    --red: #ff4d4d;
-    --orange: #ff8c00;
-    --text: #dbeafe;
-    --muted: #4a7cb5;
-  }
-
   body {
-    background: var(--bg);
+    background: #0b1120;
     font-family: 'Tajawal', sans-serif;
-    color: var(--text);
+    color: #e2eeff;
     min-height: 100vh;
+    padding: 48px 20px 80px;
   }
 
-  /* ===== TOP BAR ===== */
-  .topbar {
-    background: linear-gradient(135deg, #0d1f3c, #102a50);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  .page { max-width: 680px; margin: 0 auto; }
+
+  .logo-area { text-align: center; margin-bottom: 12px; }
 
   .logo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    background: linear-gradient(135deg, #0d1f3c, #102a50);
+    border: 1px solid #1e3d6e;
+    border-radius: 20px;
+    padding: 18px 36px;
   }
 
   .logo-icon {
-    width: 42px; height: 42px;
+    width: 54px; height: 54px;
     background: linear-gradient(135deg, #00d4ff, #0088cc);
-    border-radius: 10px;
+    border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
+    font-size: 26px; flex-shrink: 0;
   }
 
-  .logo-text .name { font-size: 1.2rem; font-weight: 900; color: #fff; }
-  .logo-text .name span { color: var(--accent); }
-  .logo-text .sub { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+  .logo-text .name { font-size: 1.7rem; font-weight: 900; color: #fff; line-height: 1.1; }
+  .logo-text .name span { color: #00d4ff; }
+  .logo-text .sub { font-size: 12px; color: #4a7cb5; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
 
-  .ep-badge {
-    background: rgba(0,212,255,0.1);
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 700;
-  }
+  .instructor { text-align: center; margin-bottom: 44px; margin-top: 16px; }
+  .instructor p { color: #4a7cb5; font-size: 14px; margin-bottom: 4px; letter-spacing: 1px; }
+  .instructor h2 { font-size: 1.25rem; font-weight: 700; color: #a0c4f1; }
 
-  /* ===== LAYOUT ===== */
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    min-height: calc(100vh - 74px);
-  }
-
-  /* ===== LEFT: SCRIPT ===== */
-  .script-panel {
-    border-left: 1px solid var(--border);
-    background: var(--panel);
-    overflow-y: auto;
-    padding: 24px 20px;
-  }
-
-  .panel-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .panel-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .scard {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    margin-bottom: 16px;
+  .card {
+    background: #111d33;
+    border: 1px solid #1a3060;
+    border-radius: 16px;
+    margin-bottom: 20px;
     overflow: hidden;
   }
 
-  .scard-title {
+  .card-title {
     background: #0d1a30;
-    padding: 11px 18px;
-    font-size: 14px;
+    padding: 14px 24px;
+    font-size: 15px;
     font-weight: 700;
-    color: var(--accent);
-    border-bottom: 1px solid var(--border);
+    color: #00d4ff;
+    border-bottom: 1px solid #1a3060;
     display: flex;
     align-items: center;
-    gap: 8px;
-  }
-
-  .scard-title .dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
-
-  .scard-body {
-    padding: 16px 18px;
-    font-size: 16px;
-    line-height: 2;
-    color: var(--text);
-  }
-
-  .scard-body p { margin-bottom: 10px; }
-  .scard-body p:last-child { margin-bottom: 0; }
-
-  .note {
-    background: rgba(0,212,255,0.06);
-    border-right: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    font-size: 13px;
-    color: #7ab8e8;
-    margin-top: 10px;
-  }
-
-  .note.yellow { border-right-color: var(--yellow); background: rgba(255,215,0,0.06); color: #d4aa00; }
-  .note.green  { border-right-color: var(--green);  background: rgba(0,255,136,0.05); color: #00c86a; }
-
-  .sep { height: 1px; background: var(--border); margin: 12px 0; }
-
-  em { color: var(--accent); font-style: normal; font-weight: 600; }
-  strong { color: var(--yellow); font-weight: 700; }
-
-  .scard.final { border-color: #1a4030; background: #0d1e18; }
-  .scard.final .scard-title { background: #0a1a14; color: var(--green); border-bottom-color: #1a4030; }
-  .scard.final .scard-title .dot { background: var(--green); }
-  .scard.final .scard-body { text-align: center; color: #a0f0c0; padding: 20px 18px; }
-
-  /* ===== RIGHT: APP ===== */
-  .app-panel {
-    background: #070d1a;
-    overflow-y: auto;
-    padding: 24px 20px;
-    border-right: 1px solid var(--border);
-  }
-
-  .app-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .app-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* Terminal */
-  .terminal {
-    background: #050c18;
-    border: 1px solid #0e2244;
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-
-  .terminal-bar {
-    background: #0a1628;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border-bottom: 1px solid #0e2244;
-  }
-
-  .tbar-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .tbar-dot.r { background: #ff5f57; }
-  .tbar-dot.y { background: #ffbd2e; }
-  .tbar-dot.g { background: #28c840; }
-
-  .tbar-title {
-    flex: 1;
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .terminal-body {
-    padding: 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    min-height: 140px;
-    max-height: 220px;
-    overflow-y: auto;
-    line-height: 1.8;
-  }
-
-  .terminal-body::-webkit-scrollbar { width: 4px; }
-  .terminal-body::-webkit-scrollbar-track { background: #050c18; }
-  .terminal-body::-webkit-scrollbar-thumb { background: #1a3060; border-radius: 2px; }
-
-  .t-line { display: flex; gap: 8px; margin-bottom: 2px; }
-  .t-prompt { color: #00ff88; flex-shrink: 0; }
-  .t-cmd { color: #a0c4f1; }
-  .t-out { color: #64748b; padding-right: 16px; }
-  .t-out.accent { color: var(--accent); }
-  .t-out.warn { color: var(--red); }
-  .t-out.ok { color: var(--green); }
-  .t-out.yellow { color: var(--yellow); }
-
-  /* Controls */
-  .controls {
-    display: flex;
     gap: 10px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
   }
 
-  .btn {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    font-family: 'Tajawal', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  .card-title .dot { width: 8px; height: 8px; background: #00d4ff; border-radius: 50%; flex-shrink: 0; }
+
+  .card-body {
+    padding: 22px 24px;
+    font-size: 19px;
+    line-height: 2.1;
+    color: #dbeafe;
   }
 
-  .btn-primary { background: var(--accent); color: #070d1a; }
-  .btn-primary:hover { background: #33ddff; transform: translateY(-1px); }
-  .btn-primary:disabled { background: #1a3060; color: #4a7cb5; cursor: not-allowed; transform: none; }
+  .card-body p { margin-bottom: 12px; }
+  .card-body p:last-child { margin-bottom: 0; }
 
-  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  em { color: #00d4ff; font-style: normal; font-weight: 600; }
+  strong { color: #ffd700; font-weight: 700; }
 
-  .btn-red { background: rgba(255,77,77,0.1); color: var(--red); border: 1px solid rgba(255,77,77,0.3); }
-  .btn-red:hover { background: rgba(255,77,77,0.2); }
+  .sep { height: 1px; background: #1a3060; margin: 14px 0; }
 
-  /* Packet Table */
-  .packet-table-wrap {
-    background: #050c18;
-    border: 1px solid #0e2244;
-    border-radius: 14px;
+  /* نوع الجدار النار - بطاقة ملوّنة */
+  .fw-card {
+    border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    border: 1px solid;
   }
 
-  .packet-table-head {
-    background: #0a1628;
-    padding: 10px 16px;
+  .fw-card.blue  { border-color: #1a3a6e; }
+  .fw-card.green { border-color: #1a4030; }
+  .fw-card.orange{ border-color: #3d2810; }
+  .fw-card.purple{ border-color: #2d1a4a; }
+  .fw-card.red   { border-color: #3d1a1a; }
+
+  .fw-head {
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #0e2244;
+    gap: 10px;
   }
 
-  .packet-table-head span { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+  .fw-card.blue   .fw-head { background: #0d1e3a; color: #00d4ff; }
+  .fw-card.green  .fw-head { background: #0a1e14; color: #00ff88; }
+  .fw-card.orange .fw-head { background: #1e1205; color: #ff8c00; }
+  .fw-card.purple .fw-head { background: #160d28; color: #a78bfa; }
+  .fw-card.red    .fw-head { background: #1e0a0a; color: #ff6b6b; }
 
-  .live-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--green);
-    animation: blink 1s infinite;
+  .fw-body {
+    padding: 14px 18px;
+    background: #0a1220;
+    font-size: 17px;
+    line-height: 1.95;
+    color: #c8dcf5;
+  }
+
+  .fw-body p { margin-bottom: 8px; }
+  .fw-body p:last-child { margin-bottom: 0; }
+
+  .tag {
     display: inline-block;
-    margin-left: 6px;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
   }
 
-  .live-dot.off { background: #1a3060; animation: none; }
+  .tag.pro  { background: rgba(0,255,136,0.12); color: #00cc66; }
+  .tag.con  { background: rgba(255,77,77,0.12); color: #ff6b6b; }
+  .tag.use  { background: rgba(255,215,0,0.10); color: #ccaa00; }
 
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .card.final { border-color: #1a4030; background: #0d1e18; }
+  .card.final .card-title { background: #0a1a14; color: #00ff88; border-bottom-color: #1a4030; }
+  .card.final .card-title .dot { background: #00ff88; }
+  .card.final .card-body { text-align: center; font-size: 20px; color: #a0f0c0; padding: 30px 24px; }
 
-  table {
+  /* جدول المقارنة */
+  .compare-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    font-size: 15px;
+    margin-top: 4px;
   }
 
-  thead th {
+  .compare-table th {
     background: #0a1628;
-    padding: 8px 12px;
-    color: var(--muted);
+    padding: 10px 14px;
+    color: #4a7cb5;
+    font-weight: 700;
     text-align: right;
-    font-weight: 700;
-    border-bottom: 1px solid #0e2244;
+    border-bottom: 1px solid #1a3060;
   }
 
-  tbody tr { border-bottom: 1px solid #0a1830; transition: background 0.15s; }
-  tbody tr:hover { background: #0d1e3a; }
-  tbody tr:last-child { border-bottom: none; }
-  tbody td { padding: 7px 12px; color: #a0c4f1; }
-
-  .badge-proto {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 700;
+  .compare-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #0d1a30;
+    color: #c8dcf5;
+    vertical-align: top;
   }
 
-  .badge-tcp  { background: rgba(0,212,255,0.15); color: var(--accent); }
-  .badge-udp  { background: rgba(255,215,0,0.12); color: var(--yellow); }
-  .badge-http { background: rgba(255,77,77,0.12); color: var(--red); }
-  .badge-https{ background: rgba(0,255,136,0.12); color: var(--green); }
-  .badge-dns  { background: rgba(255,140,0,0.12); color: var(--orange); }
-  .badge-icmp { background: rgba(147,51,234,0.15); color: #a78bfa; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: #0d1e3a; }
 
-  .flag-sus { color: var(--red); font-weight: 700; }
-  .flag-ok  { color: var(--green); }
-  .flag-warn{ color: var(--yellow); }
-
-  /* Inspector */
-  .inspector {
-    background: #050c18;
-    border: 1px solid #0e2244;
-    border-radius: 14px;
-    overflow: hidden;
-  }
-
-  .inspector-head {
-    background: #0a1628;
-    padding: 10px 16px;
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-    border-bottom: 1px solid #0e2244;
-  }
-
-  .inspector-body {
-    padding: 14px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    line-height: 1.9;
-    color: #7ab8e8;
-    min-height: 80px;
-  }
-
-  .insp-key { color: var(--muted); }
-  .insp-val { color: #a0e0ff; }
-  .insp-val.red { color: var(--red); }
-  .insp-val.green { color: var(--green); }
-  .insp-val.yellow { color: var(--yellow); }
-  .insp-tip {
-    margin-top: 10px;
-    padding: 8px 12px;
-    background: rgba(0,212,255,0.06);
-    border-right: 2px solid var(--accent);
-    border-radius: 0 6px 6px 0;
-    color: #7ab8e8;
-    font-size: 12px;
-  }
-
-  /* Stats */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-
-  .stat-box {
-    background: #050c18;
-    border: 1px solid #0e2244;
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-  }
-
-  .stat-box .val { font-size: 1.6rem; font-weight: 900; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
-  .stat-box .val.red { color: var(--red); }
-  .stat-box .val.green { color: var(--green); }
-  .stat-box .lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-  /* Print */
   @media print {
-    .app-panel { display: none; }
-    .layout { grid-template-columns: 1fr; }
-    body { background: #fff; color: #000; }
-    .scard { border: 1px solid #ccc; background: #fff; }
-    .scard-title { background: #f0f4ff; color: #003399; border-bottom: 1px solid #ccc; }
-    .scard-body { color: #111; }
+    body { background: #fff; color: #000; padding: 24px; }
+    .card { border: 1px solid #ccc; background: #fff; }
+    .card-title { background: #f0f4ff; color: #003399; border-bottom: 1px solid #ccc; }
+    .card-body { color: #111; }
+    .fw-card { border: 1px solid #ccc; }
+    .fw-head { background: #f0f4ff !important; color: #003 !important; }
+    .fw-body { background: #fff; color: #111; }
+    .card.final { background: #f0fff8; border-color: #ccc; }
+    .card.final .card-title { background: #e0fff0; color: #006633; }
+    .card.final .card-body { color: #005522; }
     em { color: #0044cc; }
     strong { color: #cc6600; }
-    .topbar { background: #f0f4ff; border-bottom: 1px solid #ccc; }
+    .logo { border: 1px solid #ccc; background: #f8f9ff; }
     .logo-text .name { color: #003; }
     .logo-text .name span { color: #0055cc; }
-    .scard.final { background: #f0fff8; }
-    .scard.final .scard-title { color: #006633; }
-    .scard.final .scard-body { color: #005522; }
-    .note { background: #f0f8ff; color: #0055aa; }
+    .compare-table th { background: #f0f4ff; color: #003; }
+    .compare-table td { color: #111; }
+    .print-btn { display: none; }
   }
 
-  @media (max-width: 800px) {
-    .layout { grid-template-columns: 1fr; }
-    .script-panel { border-left: none; border-top: 1px solid var(--border); order: 2; }
-    .app-panel { order: 1; }
+  .print-btn {
+    display: block;
+    margin: 36px auto 0;
+    padding: 13px 36px;
+    background: #00d4ff;
+    color: #0b1120;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
   }
+
+  .print-btn:hover { background: #33ddff; }
 </style>
 </head>
 <body>
+<div class="page">
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="logo">
-    <div class="logo-icon">🛡️</div>
-    <div class="logo-text">
-      <div class="name">SMART <span>TIME</span></div>
-      <div class="sub">Academy · المدرب عباس باسم</div>
+  <!-- الشعار -->
+  <div class="logo-area">
+    <div class="logo">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">
+        <div class="name">SMART <span>TIME</span></div>
+        <div class="sub">Academy</div>
+      </div>
     </div>
   </div>
-  <div class="ep-badge">🎙️ الحلقة الخامسة — تحليل الحزم</div>
+
+  <!-- المدرب -->
+  <div class="instructor">
+    <p>المدرب</p>
+    <h2>عباس باسم</h2>
+  </div>
+
+  <!-- البداية -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>البداية</div>
+    <div class="card-body">
+      <p>السلام عليكم ورحمة الله وبركاته، أهلاً وسهلاً بكم في <em>أكاديمية SMART TIME</em>.</p>
+      <p>أنا عباس باسم، ومعكم في <strong>الحلقة السادسة</strong> من سلسلة الأمن السيبراني.</p>
+      <p>اليوم رح نتكلم عن واحد من أهم أدوات الحماية اللي ما تخلو منها أي شبكة: <em>الجدار الناري — Firewall</em>.</p>
+    </div>
+  </div>
+
+  <!-- ما هو الجدار الناري -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>ما هو الجدار الناري؟</div>
+    <div class="card-body">
+      <p>الجدار الناري هو: <em>نظام حماية يراقب حركة البيانات الداخلة والخارجة</em> من الشبكة، ويقرر ماذا يسمح وماذا يمنع.</p>
+      <p>تخيّل بوّاب فندق فاخر — يشوف كل من يدخل، يتحقق من هويته، ويقرر: <strong>تفضل أو ما تدخل</strong>.</p>
+      <p>الجدار الناري هو هذا البوّاب، لكن للشبكة.</p>
+      <div class="sep"></div>
+      <p>بدون جدار ناري، شبكتك مثل بيت <strong>بلا باب</strong> — أي أحد يقدر يدخل.</p>
+    </div>
+  </div>
+
+  <!-- النوع الأول -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>أنواع الجدران النارية</div>
+    <div class="card-body">
+
+      <div class="fw-card blue">
+        <div class="fw-head">🔵 1. Packet Filtering Firewall</div>
+        <div class="fw-body">
+          <p>أقدم وأبسط نوع — يفحص كل حزمة بيانات بشكل منفصل.</p>
+          <p>يشوف: <em>من أين جاءت؟ وين تروح؟ أي منفذ؟</em> — ويقرر بناءً على قواعد محددة مسبقاً.</p>
+          <p><span class="tag pro">✅ ميزة</span> سريع جداً وخفيف على الموارد</p>
+          <p><span class="tag con">❌ عيب</span> ما يفهم محتوى الحزمة — بس يشوف العنوان والمنفذ</p>
+          <p><span class="tag use">📌 يُستخدم في</span> الشبكات الصغيرة والراوترات المنزلية</p>
+        </div>
+      </div>
+
+      <div class="fw-card green">
+        <div class="fw-head">🟢 2. Stateful Inspection Firewall</div>
+        <div class="fw-body">
+          <p>أذكى من السابق — لا يشوف الحزمة بشكل منفصل، بل يتابع <em>الاتصال كله من البداية للنهاية</em>.</p>
+          <p>يسأل: هل هذي الحزمة جزء من اتصال شرعي بدأناه نحن؟ أم جاءت من الفراغ؟</p>
+          <p><span class="tag pro">✅ ميزة</span> يكشف هجمات أذكى لأنه يفهم سياق الاتصال</p>
+          <p><span class="tag con">❌ عيب</span> أبطأ قليلاً ويحتاج موارد أكثر</p>
+          <p><span class="tag use">📌 يُستخدم في</span> معظم الشركات والمؤسسات اليوم</p>
+        </div>
+      </div>
+
+      <div class="fw-card orange">
+        <div class="fw-head">🟠 3. Application Layer Firewall (WAF)</div>
+        <div class="fw-body">
+          <p>يغوص في <em>محتوى البيانات نفسه</em> — مو بس العنوان والمنفذ.</p>
+          <p>يفهم HTTP، HTTPS، DNS، FTP — ويقدر يكشف هجمات مثل <em>SQL Injection</em> و<em>XSS</em>.</p>
+          <p><span class="tag pro">✅ ميزة</span> أعمق مستوى حماية — يحمي التطبيقات مباشرة</p>
+          <p><span class="tag con">❌ عيب</span> أبطأ وأغلى — يحتاج موارد كبيرة</p>
+          <p><span class="tag use">📌 يُستخدم في</span> المواقع والبنوك والخدمات الحكومية</p>
+        </div>
+      </div>
+
+      <div class="fw-card purple">
+        <div class="fw-head">🟣 4. Next-Generation Firewall (NGFW)</div>
+        <div class="fw-body">
+          <p>الجيل الجديد — يجمع كل الأنواع السابقة في جهاز واحد، ويضيف عليها:</p>
+          <p><em>فحص SSL</em> — يقدر يفتح الاتصالات المشفرة ويفحصها ثم يعيد تشفيرها.</p>
+          <p><em>كشف التهديدات بالذكاء الاصطناعي</em> — يتعلم الأنماط الغريبة تلقائياً.</p>
+          <p><span class="tag pro">✅ ميزة</span> أقوى حماية متكاملة موجودة اليوم</p>
+          <p><span class="tag con">❌ عيب</span> تكلفته عالية جداً</p>
+          <p><span class="tag use">📌 يُستخدم في</span> الشركات الكبيرة والبنية التحتية الحيوية</p>
+        </div>
+      </div>
+
+      <div class="fw-card red">
+        <div class="fw-head">🔴 5. Cloud Firewall</div>
+        <div class="fw-body">
+          <p>جدار ناري يعمل <em>على السحابة</em> — مو على جهاز فيزيائي في مكانك.</p>
+          <p>تمر كل حركة الشبكة عبر السحابة أولاً، تُفحص، ثم تصل لك.</p>
+          <p><span class="tag pro">✅ ميزة</span> مرن، يتوسع مع الشبكة، ولا يحتاج صيانة يدوية</p>
+          <p><span class="tag con">❌ عيب</span> يعتمد على الإنترنت — لو انقطع الإنترنت توقف الحماية</p>
+          <p><span class="tag use">📌 يُستخدم في</span> الشركات الناشئة والعمل عن بُعد</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- مقارنة سريعة -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>مقارنة سريعة</div>
+    <div class="card-body">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>النوع</th>
+            <th>مستوى الحماية</th>
+            <th>السرعة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Packet Filtering</td>
+            <td>⭐</td>
+            <td>🚀🚀🚀</td>
+          </tr>
+          <tr>
+            <td>Stateful Inspection</td>
+            <td>⭐⭐</td>
+            <td>🚀🚀</td>
+          </tr>
+          <tr>
+            <td>Application (WAF)</td>
+            <td>⭐⭐⭐</td>
+            <td>🚀</td>
+          </tr>
+          <tr>
+            <td>NGFW</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>🚀</td>
+          </tr>
+          <tr>
+            <td>Cloud Firewall</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>🚀🚀</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sep"></div>
+      <p>القاعدة: <em>كلما زادت الحماية، زاد الحِمل على الشبكة</em> — الاختيار يعتمد على احتياجاتك.</p>
+    </div>
+  </div>
+
+  <!-- معلومة إضافية -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>معلومة مهمة — الجدار الناري وحده لا يكفي</div>
+    <div class="card-body">
+      <p>كثير ناس يعتقدون إن الجدار الناري يحميهم 100% — <strong>هذا خطأ.</strong></p>
+      <p>الجدار الناري هو <em>خط دفاع أول</em> — لكنه ما يحمي من:</p>
+      <p>⚠️ المستخدم اللي يفتح رابط تصيّد بنفسه</p>
+      <p>⚠️ الهجمات الداخلية من داخل الشبكة</p>
+      <p>⚠️ البرمجيات الخبيثة اللي وصلت عبر USB أو إيميل</p>
+      <div class="sep"></div>
+      <p>لهذا الأمن السيبراني الحقيقي هو <em>طبقات متعددة</em> — مو أداة واحدة.</p>
+    </div>
+  </div>
+
+  <!-- الخلاصة -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>الخلاصة</div>
+    <div class="card-body">
+      <p>✅ الجدار الناري = البوّاب الرقمي للشبكة</p>
+      <p>✅ <em>Packet Filtering</em> — أبسط وأسرع نوع</p>
+      <p>✅ <em>Stateful</em> — يفهم سياق الاتصال</p>
+      <p>✅ <em>WAF</em> — يحمي التطبيقات من الداخل</p>
+      <p>✅ <em>NGFW</em> — الأقوى والأشمل</p>
+      <p>✅ <em>Cloud Firewall</em> — مرن ومناسب لعصر السحابة</p>
+      <p>✅ <strong>الجدار الناري خط دفاع أول — مو الحل الكامل</strong></p>
+    </div>
+  </div>
+
+  <!-- اختتام -->
+  <div class="card final">
+    <div class="card-title"><span class="dot"></span>اختتام</div>
+    <div class="card-body">
+      تمت الحلقة السادسة بحمد الله 🙏
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ طباعة السكريبت</button>
+
 </div>
-
-<div class="layout">
-
-  <!-- ===== RIGHT: APP ===== -->
-  <div class="app-panel">
-    <div class="app-title">🖥️ التطبيق العملي</div>
-
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat-box">
-        <div class="val" id="total">0</div>
-        <div class="lbl">إجمالي الحزم</div>
-      </div>
-      <div class="stat-box">
-        <div class="val green" id="safe">0</div>
-        <div class="lbl">حزم آمنة</div>
-      </div>
-      <div class="stat-box">
-        <div class="val red" id="sus">0</div>
-        <div class="lbl">مشبوهة ⚠️</div>
-      </div>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-      <button class="btn btn-primary" id="btnStart" onclick="startCapture()">▶ ابدأ التقاط</button>
-      <button class="btn btn-red" id="btnStop" onclick="stopCapture()" disabled>⏹ إيقاف</button>
-      <button class="btn btn-ghost" onclick="clearAll()">🗑 مسح</button>
-    </div>
-
-    <!-- Terminal -->
-    <div class="terminal">
-      <div class="terminal-bar">
-        <div class="tbar-dot r"></div>
-        <div class="tbar-dot y"></div>
-        <div class="tbar-dot g"></div>
-        <div class="tbar-title">packet-analyzer ~ bash</div>
-      </div>
-      <div class="terminal-body" id="termBody">
-        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> smart-time analyzer v1.0</span></div>
-        <div class="t-line"><span class="t-out">اضغط "ابدأ التقاط" لبدء المحاكاة...</span></div>
-      </div>
-    </div>
-
-    <!-- Packet Table -->
-    <div class="packet-table-wrap">
-      <div class="packet-table-head">
-        <span>📦 الحزم الملتقطة</span>
-        <span id="liveStatus"><span class="live-dot off" id="liveDot"></span> متوقف</span>
-      </div>
-      <div style="overflow-x:auto; max-height: 240px; overflow-y:auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>المصدر</th>
-              <th>الوجهة</th>
-              <th>البروتوكول</th>
-              <th>الحجم</th>
-              <th>الحالة</th>
-            </tr>
-          </thead>
-          <tbody id="packetTable"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Inspector -->
-    <div class="inspector">
-      <div class="inspector-head">🔍 فحص الحزمة — انقر على أي صف لتفاصيل</div>
-      <div class="inspector-body" id="inspector">
-        <span style="color:#1a3060">لم يتم اختيار أي حزمة بعد...</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== LEFT: SCRIPT ===== -->
-  <div class="script-panel">
-    <div class="panel-title">🎙️ السكريبت</div>
-
-    <div class="scard">
-      <div class="scard-title"><span class="dot"></span>البداية</div>
-      <div class="scard-body">
-        <p>السلام عليكم ورحمة الله وبركاته، أهلاً بكم في <em>أكاديمية SMART TIME</em>.</p>
-        <p>أنا عباس باسم، ومعكم في <strong>الحلقة الخامسة</strong> — وهذي المرة رح يكون عندنا <em>تطبيق عملي</em>.</p>
-        <p>رح نشوف كيف المحترف يحلل الحزم اللي تمر على الشبكة.</p>
-        <div class="note">👆 أشر على الشاشة اليمين وقل: "هذا هو المحلل اللي رح نشتغل عليه اليوم"</div>
-      </div>
-    </div>
-
-    <div class="scard">
-      <div class="scard-title"><span class="dot"></span>ما هو تحليل الحزم؟</div>
-      <div class="scard-body">
-        <p>تحليل الحزم — أو <em>Packet Analysis</em> — هو عملية مراقبة البيانات اللي تمر على الشبكة.</p>
-        <p>كل شي ترسله أو تستقبله على الإنترنت يتحول لـ <strong>حزم صغيرة</strong>.</p>
-        <p>المحلل يلتقط هذي الحزم ويقرأ محتواها — <em>مين أرسل؟ لمين؟ وش في الداخل؟</em></p>
-        <div class="note yellow">👆 اضغط "ابدأ التقاط" وخلّ المشاهد يشوف الحزم تظهر</div>
-      </div>
-    </div>
-
-    <div class="scard">
-      <div class="scard-title"><span class="dot"></span>قراءة معلومات الحزمة</div>
-      <div class="scard-body">
-        <p>كل حزمة عندها معلومات ثابتة:</p>
-        <div class="sep"></div>
-        <p>📍 <em>المصدر</em> — عنوان IP الجهاز اللي أرسل</p>
-        <p>📍 <em>الوجهة</em> — عنوان IP اللي راح يستلم</p>
-        <p>📍 <em>البروتوكول</em> — نوع الاتصال: TCP، UDP، HTTP...</p>
-        <p>📍 <em>الحجم</em> — كم بايت في الحزمة</p>
-        <div class="note">👆 انقر على أي حزمة في الجدول وشرح تفاصيلها للمشاهد</div>
-      </div>
-    </div>
-
-    <div class="scard">
-      <div class="scard-title"><span class="dot"></span>كيف نكشف الخطر؟</div>
-      <div class="scard-body">
-        <p>المحلل المحترف يبحث عن <strong>أنماط غير طبيعية</strong>:</p>
-        <div class="sep"></div>
-        <p>🔴 حزمة <em>HTTP</em> بدون تشفير — بياناتها مكشوفة لأي أحد</p>
-        <p>🔴 عدد ضخم من الحزم من نفس المصدر — قد يكون <em>هجوم DoS</em></p>
-        <p>🔴 اتصال لمنفذ غريب — قد يكون <em>برنامج خبيث يتصل بسيرفر خارجي</em></p>
-        <div class="sep"></div>
-        <p>الحزم <em>HTTPS</em> هي الآمنة — البيانات مشفرة ولا أحد يقدر يقرأها.</p>
-        <div class="note green">👆 أشر على العمود "الحالة" وفرّق بين الأحمر والأخضر</div>
-      </div>
-    </div>
-
-    <div class="scard">
-      <div class="scard-title"><span class="dot"></span>أدوات تحليل الحزم الحقيقية</div>
-      <div class="scard-body">
-        <p>في الواقع، المحترفون يستخدمون أدوات متخصصة:</p>
-        <div class="sep"></div>
-        <p>🛠 <em>Wireshark</em> — أشهر أداة مجانية لتحليل الحزم</p>
-        <p>🛠 <em>tcpdump</em> — أداة سطر أوامر للمحترفين</p>
-        <p>🛠 <em>NetworkMiner</em> — تستخلص الملفات والصور من الحزم</p>
-        <div class="sep"></div>
-        <p>ما اللي نشوفه اليوم هو <strong>محاكاة مبسطة</strong> لنفس المبدأ.</p>
-      </div>
-    </div>
-
-    <div class="scard">
-      <div class="scard-title"><span class="dot"></span>الخلاصة</div>
-      <div class="scard-body">
-        <p>✅ كل بيانات الشبكة تنتقل على شكل <em>حزم</em></p>
-        <p>✅ تحليل الحزم يكشف <strong>من يتصل بمن وبأي بروتوكول</strong></p>
-        <p>✅ HTTP خطر — <em>HTTPS آمن</em></p>
-        <p>✅ الأنماط الغريبة = إشارة خطر يلزم التحقيق فيها</p>
-      </div>
-    </div>
-
-    <div class="scard final">
-      <div class="scard-title"><span class="dot"></span>اختتام</div>
-      <div class="scard-body">
-        تمت الحلقة الخامسة بحمد الله 🙏
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-  const protocols = ['TCP','UDP','HTTP','HTTPS','DNS','ICMP'];
-  const ips = ['192.168.1.','10.0.0.','172.16.0.','203.45.12.','185.23.99.'];
-  let packets = [];
-  let counter = 0;
-  let totalCount = 0, safeCount = 0, susCount = 0;
-  let interval = null;
-  let running = false;
-
-  const tips = {
-    HTTP:  { flag:'flag-sus', status:'⚠️ خطر',   tip:'HTTP غير مشفّر — أي شخص على الشبكة يقدر يقرأ هذي البيانات!', val:'red' },
-    HTTPS: { flag:'flag-ok',  status:'✅ آمن',    tip:'HTTPS مشفّر بـ TLS — البيانات محمية ولا أحد يقدر يقرأها.', val:'green' },
-    TCP:   { flag:'flag-ok',  status:'✅ طبيعي',  tip:'اتصال TCP عادي — يستخدم لنقل البيانات بشكل موثوق.', val:'green' },
-    UDP:   { flag:'flag-warn',status:'🟡 راقب',   tip:'UDP سريع لكن بدون ضمان وصول — يُستخدم في البث والألعاب.', val:'yellow' },
-    DNS:   { flag:'flag-warn',status:'🟡 راقب',   tip:'DNS يترجم الأسماء لعناوين IP — قد يُستغل في هجمات DNS Spoofing.', val:'yellow' },
-    ICMP:  { flag:'flag-sus', status:'⚠️ راقب',   tip:'ICMP يستخدمه الـ Ping — كميات كبيرة منه قد تشير لهجوم Ping Flood.', val:'red' },
-  };
-
-  const sizes = { TCP:64, UDP:128, HTTP:512, HTTPS:1024, DNS:56, ICMP:32 };
-
-  function randIP(prefix){ return prefix + Math.floor(Math.random()*254+1); }
-  function randFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
-  function genPacket(){
-    const proto = randFrom(protocols);
-    const src = randIP(randFrom(ips));
-    const dst = randIP(randFrom(ips));
-    const size = sizes[proto] + Math.floor(Math.random()*64);
-    return { id: ++counter, src, dst, proto, size };
-  }
-
-  function addTermLine(html){
-    const tb = document.getElementById('termBody');
-    tb.insertAdjacentHTML('beforeend', html);
-    tb.scrollTop = tb.scrollHeight;
-  }
-
-  function renderPacket(p){
-    const t = tips[p.proto];
-    const row = document.createElement('tr');
-    row.style.cursor = 'pointer';
-    row.innerHTML = `
-      <td style="color:#4a7cb5">${p.id}</td>
-      <td>${p.src}</td>
-      <td>${p.dst}</td>
-      <td><span class="badge-proto badge-${p.proto.toLowerCase()}">${p.proto}</span></td>
-      <td>${p.size}B</td>
-      <td class="${t.flag}">${t.status}</td>
-    `;
-    row.onclick = () => inspect(p, t);
-    document.getElementById('packetTable').prepend(row);
-  }
-
-  function inspect(p, t){
-    const enc = p.proto === 'HTTPS' ? 'مشفّرة (TLS)' : 'غير مشفّرة';
-    const encClass = p.proto === 'HTTPS' ? 'green' : 'red';
-    document.getElementById('inspector').innerHTML = `
-      <div><span class="insp-key">رقم الحزمة : </span><span class="insp-val">${p.id}</span></div>
-      <div><span class="insp-key">المصدر     : </span><span class="insp-val">${p.src}</span></div>
-      <div><span class="insp-key">الوجهة     : </span><span class="insp-val">${p.dst}</span></div>
-      <div><span class="insp-key">البروتوكول : </span><span class="insp-val ${t.val}">${p.proto}</span></div>
-      <div><span class="insp-key">الحجم      : </span><span class="insp-val">${p.size} Bytes</span></div>
-      <div><span class="insp-key">التشفير    : </span><span class="insp-val ${encClass}">${enc}</span></div>
-      <div><span class="insp-key">الحالة     : </span><span class="insp-val ${t.val}">${t.status}</span></div>
-      <div class="insp-tip">💡 ${t.tip}</div>
-    `;
-  }
-
-  function startCapture(){
-    if(running) return;
-    running = true;
-    document.getElementById('btnStart').disabled = true;
-    document.getElementById('btnStop').disabled = false;
-    document.getElementById('liveDot').className = 'live-dot';
-    document.getElementById('liveStatus').innerHTML = '<span class="live-dot" id="liveDot"></span> جاري التقاط...';
-
-    addTermLine('<div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> sudo tcpdump -i eth0</span></div>');
-    addTermLine('<div class="t-line"><span class="t-out accent">بدأ الالتقاط على eth0...</span></div>');
-
-    interval = setInterval(() => {
-      const p = genPacket();
-      packets.push(p);
-      const t = tips[p.proto];
-      totalCount++;
-      if(t.flag === 'flag-ok') safeCount++;
-      else susCount++;
-      document.getElementById('total').textContent = totalCount;
-      document.getElementById('safe').textContent = safeCount;
-      document.getElementById('sus').textContent = susCount;
-      renderPacket(p);
-      const cls = t.flag === 'flag-ok' ? 'ok' : t.flag === 'flag-warn' ? 'yellow' : 'warn';
-      addTermLine(`<div class="t-line"><span class="t-out">${String(p.id).padStart(3,'0')} </span><span class="t-out accent">${p.src}</span><span class="t-out"> → </span><span class="t-out accent">${p.dst}</span><span class="t-out ${cls}"> [${p.proto}] ${p.size}B</span></div>`);
-    }, 1200);
-  }
-
-  function stopCapture(){
-    if(!running) return;
-    running = false;
-    clearInterval(interval);
-    document.getElementById('btnStart').disabled = false;
-    document.getElementById('btnStop').disabled = true;
-    document.getElementById('liveDot').className = 'live-dot off';
-    document.getElementById('liveStatus').innerHTML = '<span class="live-dot off"></span> متوقف';
-    addTermLine('<div class="t-line"><span class="t-out warn">⏹ تم إيقاف الالتقاط.</span></div>');
-  }
-
-  function clearAll(){
-    stopCapture();
-    packets = []; counter = 0; totalCount = 0; safeCount = 0; susCount = 0;
-    document.getElementById('packetTable').innerHTML = '';
-    document.getElementById('total').textContent = '0';
-    document.getElementById('safe').textContent = '0';
-    document.getElementById('sus').textContent = '0';
-    document.getElementById('inspector').innerHTML = '<span style="color:#1a3060">لم يتم اختيار أي حزمة بعد...</span>';
-    document.getElementById('termBody').innerHTML = `
-      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> smart-time analyzer v1.0</span></div>
-      <div class="t-line"><span class="t-out">اضغط "ابدأ التقاط" لبدء المحاكاة...</span></div>
-    `;
-  }
-</script>
 </body>
 </html>
