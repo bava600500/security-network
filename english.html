@@ -3,1100 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>إنجلش ماستر - تعلم الإنجليزية بذكاء</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<title>\u0637\u0628\u064a\u0639\u0629 \u0627\u0644\u0633\u0644\u064a\u0645\u0627\u0646\u064a\u0629</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #F5C842;
-    --gold-light: #FFE082;
-    --deep: #0A0E1A;
-    --dark: #111827;
-    --card: #161D2E;
-    --card2: #1C2540;
-    --blue: #3B82F6;
-    --cyan: #22D3EE;
-    --green: #10B981;
-    --red: #EF4444;
-    --purple: #A855F7;
-    --text: #E8EAF0;
-    --muted: #8892A4;
-    --border: rgba(255,255,255,0.08);
-    --glow: rgba(245,200,66,0.15);
-  }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'Cairo', sans-serif;
-    background: var(--deep);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
+  :root {
+    --green:#1e5631; --light:#52b788; --gold:#c9a84c;
+    --cream:#f4f0e6; --dark:#131a10;
   }
-  /* ===== BG ANIMATION ===== */
-  body::before {
-    content:'';
-    position:fixed; top:0; left:0; right:0; bottom:0;
-    background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(59,130,246,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 30% at 50% 50%, rgba(245,200,66,0.04) 0%, transparent 60%);
-    pointer-events:none; z-index:0;
-    animation: bgShift 12s ease-in-out infinite alternate;
-  }
-  @keyframes bgShift {
-    0% { opacity:0.7; }
-    100% { opacity:1; transform:scale(1.05); }
-  }
+  body { font-family:'Tajawal',sans-serif; background:var(--cream); color:#222; overflow-x:hidden; }
 
-  /* ===== HEADER ===== */
-  header {
-    position:sticky; top:0; z-index:100;
-    background: rgba(10,14,26,0.92);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display:flex; align-items:center; justify-content:space-between;
-    height: 70px;
-  }
-  .logo {
-    display:flex; align-items:center; gap:0.6rem;
-    font-size:1.4rem; font-weight:900;
-    background: linear-gradient(135deg, var(--gold), var(--cyan));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-    letter-spacing:-0.5px;
-  }
-  .logo-icon { font-size:1.8rem; }
-  nav { display:flex; gap:0.5rem; }
-  nav button {
-    background: transparent; border: none; color: var(--muted);
-    font-family:'Cairo',sans-serif; font-size:0.9rem; font-weight:600;
-    padding:0.5rem 1rem; border-radius:8px; cursor:pointer;
-    transition: all 0.2s;
-  }
-  nav button:hover, nav button.active {
-    background: rgba(245,200,66,0.1); color: var(--gold);
-  }
-  .xp-bar {
-    display:flex; align-items:center; gap:0.5rem;
-    background: rgba(255,255,255,0.05); border-radius:20px;
-    padding:0.4rem 1rem; border: 1px solid var(--border);
-  }
-  .xp-val { font-size:0.85rem; font-weight:700; color: var(--gold); }
-
-  /* ===== MAIN ===== */
-  main { position:relative; z-index:1; }
-  .page { display:none; animation: fadeIn 0.4s ease; }
-  .page.active { display:block; }
-  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-
-  /* ===== HOME ===== */
+  /* HERO */
   .hero {
-    text-align:center; padding: 5rem 2rem 3rem;
-    max-width:800px; margin:0 auto;
+    position:relative; height:100vh; min-height:560px;
+    display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
   }
-  .hero h1 {
-    font-size: clamp(2rem,5vw,3.5rem);
-    font-weight:900; line-height:1.2;
-    margin-bottom:1rem;
+  .hero-bg {
+    position:absolute; inset:0;
+    background:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80') center/cover no-repeat;
+    animation:kzoom 18s ease-in-out infinite alternate;
   }
-  .hero h1 span {
-    background: linear-gradient(135deg, var(--gold), var(--cyan));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  @keyframes kzoom{from{transform:scale(1)}to{transform:scale(1.07)}}
+  .hero-grad {
+    position:absolute; inset:0;
+    background:linear-gradient(to top,rgba(19,26,16,.92) 0%,rgba(19,26,16,.25) 55%,rgba(19,26,16,.1) 100%);
   }
-  .hero p { color:var(--muted); font-size:1.1rem; margin-bottom:2rem; line-height:1.8; }
-  .hero-cta {
-    display:inline-flex; gap:1rem; flex-wrap:wrap; justify-content:center;
+  .hero-content {
+    position:relative; z-index:2; text-align:center; color:#fff;
+    padding:0 1.5rem 5rem; animation:up 1.2s ease both;
   }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--gold), #E8A000);
-    color: #000; border:none; border-radius:12px;
-    padding:0.8rem 2rem; font-family:'Cairo',sans-serif;
-    font-size:1rem; font-weight:700; cursor:pointer;
-    transition: all 0.3s; box-shadow: 0 0 30px rgba(245,200,66,0.3);
+  @keyframes up{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+  .hero-tag{font-size:.78rem;letter-spacing:.38em;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:1rem;}
+  .hero h1{font-size:clamp(2.8rem,9vw,6rem);font-weight:900;line-height:1.05;text-shadow:0 4px 32px rgba(0,0,0,.5);}
+  .hero h1 em{color:var(--gold);font-style:normal;}
+  .hero-sub{font-size:1rem;font-weight:300;color:rgba(255,255,255,.75);margin-top:.8rem;}
+  .arrow{
+    position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,.55);font-size:.7rem;letter-spacing:.25em;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    animation:bob 2.2s ease-in-out infinite;
   }
-  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 50px rgba(245,200,66,0.5); }
-  .btn-secondary {
-    background: transparent; color:var(--cyan); border: 2px solid var(--cyan);
-    border-radius:12px; padding:0.8rem 2rem;
-    font-family:'Cairo',sans-serif; font-size:1rem; font-weight:700;
-    cursor:pointer; transition:all 0.3s;
-  }
-  .btn-secondary:hover { background:rgba(34,211,238,0.1); }
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(9px)}}
+  .arrow::after{content:'';width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);}
 
-  .modules-grid {
-    display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-    gap:1.5rem; padding:2rem; max-width:1100px; margin:0 auto;
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(19,26,16,.97);backdrop-filter:blur(14px);
+    padding:.85rem 1.8rem;display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid rgba(82,183,136,.18);
   }
-  .module-card {
-    background: var(--card); border-radius:16px;
-    border:1px solid var(--border); padding:1.5rem;
-    cursor:pointer; transition:all 0.3s; position:relative; overflow:hidden;
+  .logo{color:var(--gold);font-weight:900;font-size:1.15rem;}
+  .logo span{color:#fff;}
+
+  /* HEADER */
+  .sec-head{text-align:center;padding:3.5rem 1.5rem 2rem;}
+  .sec-head .tag{font-size:.75rem;letter-spacing:.32em;color:var(--light);font-weight:700;text-transform:uppercase;margin-bottom:.5rem;}
+  .sec-head h2{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:900;color:var(--green);}
+
+  /* GRID */
+  .grid{max-width:1180px;margin:0 auto;padding:0 1.2rem 5rem;columns:3 260px;column-gap:1.4rem;}
+  .card{
+    break-inside:avoid;margin-bottom:1.4rem;border-radius:14px;overflow:hidden;
+    background:#fff;box-shadow:0 3px 18px rgba(0,0,0,.08);
+    cursor:pointer;transition:transform .3s ease,box-shadow .3s ease;
   }
-  .module-card::before {
-    content:''; position:absolute; inset:0; opacity:0;
-    background:linear-gradient(135deg,rgba(245,200,66,0.08),transparent);
-    transition:opacity 0.3s;
-  }
-  .module-card:hover { transform:translateY(-4px); border-color:rgba(245,200,66,0.3); }
-  .module-card:hover::before { opacity:1; }
-  .module-icon { font-size:2.5rem; margin-bottom:0.8rem; display:block; }
-  .module-title { font-size:1.1rem; font-weight:700; margin-bottom:0.4rem; }
-  .module-desc { font-size:0.85rem; color:var(--muted); line-height:1.6; }
-  .module-badge {
-    position:absolute; top:1rem; left:1rem;
-    background:rgba(16,185,129,0.15); color:var(--green);
-    font-size:0.7rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:20px;
-    border:1px solid rgba(16,185,129,0.3);
+  .card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(30,86,49,.16);}
+  .card-img-wrap{overflow:hidden;position:relative;}
+  .card img{width:100%;display:block;height:200px;object-fit:cover;transition:transform .5s ease;}
+  .card:hover img{transform:scale(1.05);}
+  .info{padding:.9rem 1.1rem 1.1rem;}
+  .info h3{font-size:1rem;font-weight:700;color:var(--green);margin-bottom:.25rem;}
+  .info p{font-size:.78rem;color:#888;font-weight:300;line-height:1.5;}
+  .badge{
+    display:inline-block;margin-top:.5rem;
+    background:rgba(82,183,136,.12);color:var(--light);
+    font-size:.67rem;font-weight:700;letter-spacing:.1em;
+    padding:.18rem .65rem;border-radius:50px;
   }
 
-  /* ===== STATS ===== */
-  .stats-row {
-    display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
-    padding:1rem 2rem 2rem;
-  }
-  .stat-box {
-    background:var(--card); border-radius:12px; border:1px solid var(--border);
-    padding:1rem 1.5rem; text-align:center; min-width:140px;
-  }
-  .stat-num { font-size:2rem; font-weight:900; color:var(--gold); }
-  .stat-label { font-size:0.8rem; color:var(--muted); }
+  /* FOOTER */
+  footer{background:var(--dark);color:rgba(255,255,255,.45);text-align:center;padding:2rem;font-size:.82rem;}
+  footer strong{color:var(--gold);}
 
-  /* ===== CHAT PAGE ===== */
-  .chat-container {
-    max-width:800px; margin:0 auto; padding:1.5rem;
-    display:flex; flex-direction:column; height:calc(100vh - 70px);
+  /* LIGHTBOX */
+  .lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+  .lb.on{display:flex;animation:fi .2s ease;}
+  @keyframes fi{from{opacity:0}to{opacity:1}}
+  .lb img{max-width:92vw;max-height:78vh;border-radius:12px;object-fit:contain;}
+  .lb-name{color:#fff;font-size:1.05rem;font-weight:700;}
+  .lb-x{
+    position:absolute;top:1.4rem;left:1.4rem;
+    background:rgba(255,255,255,.1);border:none;border-radius:50%;
+    width:42px;height:42px;color:#fff;font-size:1.3rem;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;
   }
-  .chat-header {
-    display:flex; align-items:center; gap:1rem;
-    padding:1rem; background:var(--card); border-radius:16px;
-    border:1px solid var(--border); margin-bottom:1rem;
-  }
-  .ai-avatar {
-    width:48px; height:48px; border-radius:50%;
-    background:linear-gradient(135deg,var(--gold),var(--cyan));
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.4rem; flex-shrink:0;
-    box-shadow:0 0 20px rgba(245,200,66,0.3);
-  }
-  .ai-info h3 { font-size:1rem; font-weight:700; }
-  .ai-info p { font-size:0.8rem; color:var(--muted); }
-  .ai-status {
-    width:10px; height:10px; border-radius:50%; background:var(--green);
-    box-shadow:0 0 8px var(--green); margin-right:auto; margin-left:0;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-  .chat-messages {
-    flex:1; overflow-y:auto; display:flex; flex-direction:column;
-    gap:1rem; padding-bottom:1rem;
-    scrollbar-width:thin; scrollbar-color:var(--card2) transparent;
-  }
-  .msg { display:flex; gap:0.8rem; animation:fadeIn 0.3s ease; max-width:85%; }
-  .msg.user { flex-direction:row-reverse; align-self:flex-end; }
-  .msg-avatar {
-    width:36px; height:36px; border-radius:50%; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; font-size:1rem;
-  }
-  .msg-avatar.ai-av { background:linear-gradient(135deg,var(--gold),var(--cyan)); }
-  .msg-avatar.user-av { background:linear-gradient(135deg,var(--blue),var(--purple)); }
-  .msg-bubble {
-    background:var(--card2); border-radius:16px; padding:0.8rem 1rem;
-    font-size:0.9rem; line-height:1.7; border:1px solid var(--border);
-  }
-  .msg.user .msg-bubble { background:rgba(59,130,246,0.15); border-color:rgba(59,130,246,0.3); }
-  .msg-bubble .en-word {
-    color:var(--gold); font-weight:700; cursor:pointer;
-    border-bottom:1px dashed var(--gold); transition:color 0.2s;
-  }
-  .msg-bubble .en-word:hover { color:var(--cyan); }
-  .chat-input-row {
-    display:flex; gap:0.8rem;
-    background:var(--card); border-radius:14px; padding:0.5rem;
-    border:1px solid var(--border);
-  }
-  .chat-input {
-    flex:1; background:transparent; border:none; outline:none;
-    color:var(--text); font-family:'Cairo',sans-serif; font-size:0.95rem;
-    padding:0.6rem 0.8rem; direction:rtl;
-  }
-  .chat-input::placeholder { color:var(--muted); }
-  .send-btn {
-    background:linear-gradient(135deg,var(--gold),#E8A000); border:none;
-    border-radius:10px; padding:0.6rem 1.2rem; color:#000;
-    font-family:'Cairo',sans-serif; font-weight:700; cursor:pointer;
-    transition:all 0.2s;
-  }
-  .send-btn:hover { transform:scale(1.05); }
-  .send-btn:disabled { opacity:0.5; cursor:default; transform:none; }
-  .quick-prompts {
-    display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.8rem;
-  }
-  .quick-btn {
-    background:rgba(255,255,255,0.05); border:1px solid var(--border);
-    border-radius:20px; padding:0.4rem 0.9rem; font-family:'Cairo',sans-serif;
-    font-size:0.8rem; color:var(--muted); cursor:pointer; transition:all 0.2s;
-  }
-  .quick-btn:hover { color:var(--gold); border-color:rgba(245,200,66,0.4); background:rgba(245,200,66,0.05); }
-  .typing-dot {
-    display:inline-flex; gap:4px; align-items:center; padding:0.5rem 0;
-  }
-  .typing-dot span {
-    width:7px; height:7px; background:var(--muted); border-radius:50%;
-    animation: bounce 1.2s infinite;
-  }
-  .typing-dot span:nth-child(2){animation-delay:0.2s}
-  .typing-dot span:nth-child(3){animation-delay:0.4s}
-  @keyframes bounce {0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-8px)}}
-
-  /* ===== QUIZ PAGE ===== */
-  .quiz-container { max-width:700px; margin:2rem auto; padding:1.5rem; }
-  .quiz-header { text-align:center; margin-bottom:2rem; }
-  .quiz-header h2 { font-size:1.8rem; font-weight:900; margin-bottom:0.5rem; }
-  .progress-bar-wrap {
-    background:rgba(255,255,255,0.05); border-radius:10px; height:8px;
-    overflow:hidden; margin:1rem 0;
-  }
-  .progress-bar {
-    height:100%; background:linear-gradient(90deg,var(--gold),var(--cyan));
-    border-radius:10px; transition:width 0.5s ease;
-  }
-  .quiz-card {
-    background:var(--card); border-radius:20px; padding:2rem;
-    border:1px solid var(--border); text-align:center; animation:fadeIn 0.4s ease;
-  }
-  .quiz-type-badge {
-    display:inline-block; background:rgba(168,85,247,0.15); color:var(--purple);
-    border:1px solid rgba(168,85,247,0.3); border-radius:20px;
-    font-size:0.75rem; font-weight:700; padding:0.25rem 0.8rem; margin-bottom:1rem;
-  }
-  .quiz-question { font-size:1.2rem; font-weight:700; margin-bottom:1.5rem; line-height:1.6; }
-  .quiz-en-word {
-    font-size:2rem; font-weight:900; color:var(--gold);
-    background:rgba(245,200,66,0.08); border-radius:12px;
-    padding:0.5rem 1.5rem; display:inline-block; margin:0.5rem 0 1.5rem;
-    letter-spacing:2px;
-  }
-  .quiz-options { display:grid; gap:0.8rem; }
-  .quiz-opt {
-    background:rgba(255,255,255,0.04); border:2px solid var(--border);
-    border-radius:12px; padding:0.9rem 1.2rem;
-    font-family:'Cairo',sans-serif; font-size:1rem; font-weight:600;
-    color:var(--text); cursor:pointer; transition:all 0.25s; text-align:right;
-  }
-  .quiz-opt:hover { border-color:rgba(245,200,66,0.5); background:rgba(245,200,66,0.05); }
-  .quiz-opt.correct { border-color:var(--green); background:rgba(16,185,129,0.15); color:var(--green); }
-  .quiz-opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.15); color:var(--red); }
-  .quiz-opt.reveal { border-color:var(--green); background:rgba(16,185,129,0.08); }
-  .quiz-input {
-    width:100%; background:rgba(255,255,255,0.05); border:2px solid var(--border);
-    border-radius:12px; padding:0.9rem 1.2rem; color:var(--text);
-    font-family:'Cairo',sans-serif; font-size:1rem; outline:none;
-    text-align:center; direction:ltr; transition:border-color 0.2s;
-  }
-  .quiz-input:focus { border-color:var(--gold); }
-  .quiz-feedback {
-    margin-top:1rem; padding:0.8rem; border-radius:10px;
-    font-weight:600; font-size:0.95rem; display:none;
-  }
-  .quiz-feedback.show { display:block; animation:fadeIn 0.3s ease; }
-  .quiz-feedback.ok { background:rgba(16,185,129,0.15); color:var(--green); border:1px solid rgba(16,185,129,0.3); }
-  .quiz-feedback.fail { background:rgba(239,68,68,0.15); color:var(--red); border:1px solid rgba(239,68,68,0.3); }
-  .quiz-actions { display:flex; gap:1rem; justify-content:center; margin-top:1.5rem; }
-  .btn-quiz {
-    background:linear-gradient(135deg,var(--blue),var(--purple)); border:none;
-    border-radius:12px; padding:0.7rem 1.8rem; color:#fff;
-    font-family:'Cairo',sans-serif; font-weight:700; cursor:pointer; transition:all 0.2s;
-  }
-  .btn-quiz:hover { transform:translateY(-2px); }
-  .score-display {
-    display:flex; gap:2rem; justify-content:center; margin:1rem 0;
-    flex-wrap:wrap;
-  }
-  .score-item { text-align:center; }
-  .score-num { font-size:1.8rem; font-weight:900; }
-  .score-num.green { color:var(--green); }
-  .score-num.red { color:var(--red); }
-  .score-lbl { font-size:0.75rem; color:var(--muted); }
-  .quiz-level-select {
-    display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; margin:1rem 0;
-  }
-  .level-btn {
-    background:rgba(255,255,255,0.05); border:2px solid var(--border);
-    border-radius:12px; padding:0.6rem 1.2rem; color:var(--muted);
-    font-family:'Cairo',sans-serif; font-weight:700; cursor:pointer; transition:all 0.2s;
-  }
-  .level-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(245,200,66,0.08); }
-  .level-btn:hover { border-color:var(--gold); color:var(--gold); }
-
-  /* ===== VOCABULARY PAGE ===== */
-  .vocab-container { max-width:1000px; margin:2rem auto; padding:1.5rem; }
-  .vocab-categories { display:flex; gap:0.8rem; flex-wrap:wrap; margin-bottom:1.5rem; }
-  .cat-btn {
-    background:rgba(255,255,255,0.05); border:1px solid var(--border);
-    border-radius:20px; padding:0.5rem 1rem;
-    font-family:'Cairo',sans-serif; font-size:0.85rem; font-weight:600;
-    color:var(--muted); cursor:pointer; transition:all 0.2s;
-  }
-  .cat-btn.active { background:rgba(245,200,66,0.1); border-color:rgba(245,200,66,0.5); color:var(--gold); }
-  .cat-btn:hover { color:var(--gold); }
-  .words-grid {
-    display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-    gap:1rem;
-  }
-  .word-card {
-    background:var(--card); border-radius:14px; border:1px solid var(--border);
-    padding:1.2rem; cursor:pointer; transition:all 0.3s; position:relative;
-    overflow:hidden;
-  }
-  .word-card:hover { transform:translateY(-3px); border-color:rgba(245,200,66,0.4); }
-  .word-en { font-size:1.3rem; font-weight:900; color:var(--gold); margin-bottom:0.3rem; letter-spacing:0.5px; }
-  .word-ar { font-size:1rem; color:var(--text); font-weight:600; margin-bottom:0.3rem; }
-  .word-ex { font-size:0.78rem; color:var(--muted); line-height:1.5; direction:ltr; text-align:left; }
-  .word-cat-badge {
-    position:absolute; top:0.6rem; left:0.6rem;
-    background:rgba(59,130,246,0.15); color:var(--cyan);
-    font-size:0.65rem; padding:0.15rem 0.5rem; border-radius:10px;
-    font-weight:700;
-  }
-  .word-card.learned { border-color:rgba(16,185,129,0.4); }
-  .word-card.learned::after {
-    content:'✓'; position:absolute; top:0.6rem; right:0.6rem;
-    color:var(--green); font-size:0.9rem; font-weight:900;
-  }
-  .search-bar-wrap { position:relative; margin-bottom:1.2rem; }
-  .search-bar {
-    width:100%; background:var(--card); border:1px solid var(--border);
-    border-radius:12px; padding:0.8rem 1rem 0.8rem 3rem;
-    color:var(--text); font-family:'Cairo',sans-serif; font-size:0.95rem;
-    outline:none; transition:border-color 0.2s; direction:rtl;
-  }
-  .search-bar:focus { border-color:rgba(245,200,66,0.5); }
-  .search-icon { position:absolute; left:auto; right:1rem; top:50%; transform:translateY(-50%); font-size:1.1rem; }
-
-  /* ===== LESSONS PAGE ===== */
-  .lessons-container { max-width:900px; margin:2rem auto; padding:1.5rem; }
-  .lesson-list { display:flex; flex-direction:column; gap:1rem; }
-  .lesson-item {
-    background:var(--card); border-radius:16px; border:1px solid var(--border);
-    padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1.2rem;
-    cursor:pointer; transition:all 0.3s;
-  }
-  .lesson-item:hover { border-color:rgba(245,200,66,0.3); transform:translateX(-4px); }
-  .lesson-num {
-    width:48px; height:48px; border-radius:12px;
-    background:linear-gradient(135deg,var(--blue),var(--purple));
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.1rem; font-weight:900; flex-shrink:0;
-  }
-  .lesson-info { flex:1; }
-  .lesson-title { font-size:1rem; font-weight:700; margin-bottom:0.2rem; }
-  .lesson-sub { font-size:0.8rem; color:var(--muted); }
-  .lesson-done { color:var(--green); font-size:1.2rem; }
-  .lesson-lock { color:var(--muted); font-size:1.2rem; }
-
-  /* ===== LESSON DETAIL ===== */
-  .lesson-detail { max-width:750px; margin:2rem auto; padding:1.5rem; display:none; }
-  .lesson-detail.active { display:block; animation:fadeIn 0.3s ease; }
-  .lesson-section {
-    background:var(--card); border-radius:16px; border:1px solid var(--border);
-    padding:1.5rem; margin-bottom:1.2rem;
-  }
-  .lesson-section h3 { font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--gold); }
-  .lesson-section p { color:var(--muted); line-height:1.9; font-size:0.95rem; }
-  .lesson-section .en-ex {
-    background:rgba(245,200,66,0.06); border-right:3px solid var(--gold);
-    padding:0.8rem 1rem; border-radius:8px; margin:0.6rem 0;
-    direction:ltr; text-align:left; font-size:1rem; color:var(--text);
-  }
-  .lesson-section .ar-ex {
-    color:var(--muted); font-size:0.85rem; margin-top:0.3rem; direction:rtl; text-align:right;
-  }
-  .pronounce-btn {
-    background:rgba(34,211,238,0.1); border:1px solid rgba(34,211,238,0.3);
-    color:var(--cyan); border-radius:8px; padding:0.3rem 0.8rem;
-    font-family:'Cairo',sans-serif; font-size:0.8rem; cursor:pointer;
-    transition:all 0.2s; margin-top:0.5rem;
-  }
-  .pronounce-btn:hover { background:rgba(34,211,238,0.2); }
-  .back-btn {
-    background:transparent; border:1px solid var(--border); color:var(--muted);
-    border-radius:10px; padding:0.5rem 1rem; font-family:'Cairo',sans-serif;
-    font-size:0.85rem; cursor:pointer; margin-bottom:1rem; transition:all 0.2s;
-  }
-  .back-btn:hover { color:var(--text); border-color:rgba(255,255,255,0.2); }
-
-  /* ===== SPEAKING PAGE ===== */
-  .speaking-container { max-width:700px; margin:2rem auto; padding:1.5rem; text-align:center; }
-  .speaking-card {
-    background:var(--card); border-radius:20px; border:1px solid var(--border);
-    padding:2.5rem 2rem; margin-bottom:1.5rem;
-  }
-  .speak-phrase-en {
-    font-size:1.6rem; font-weight:900; color:var(--gold); margin-bottom:0.5rem;
-    letter-spacing:1px; direction:ltr;
-  }
-  .speak-phrase-ar { font-size:1.1rem; color:var(--muted); margin-bottom:1.5rem; }
-  .mic-btn {
-    width:80px; height:80px; border-radius:50%;
-    background:linear-gradient(135deg,var(--red),#FF6B6B);
-    border:none; font-size:2rem; cursor:pointer; transition:all 0.3s;
-    box-shadow:0 0 30px rgba(239,68,68,0.3); display:inline-flex;
-    align-items:center; justify-content:center; color:#fff;
-  }
-  .mic-btn.listening {
-    animation:micPulse 1s infinite;
-    box-shadow:0 0 0 0 rgba(239,68,68,0.7);
-  }
-  @keyframes micPulse {
-    0% { box-shadow:0 0 0 0 rgba(239,68,68,0.7); }
-    70% { box-shadow:0 0 0 25px rgba(239,68,68,0); }
-    100% { box-shadow:0 0 0 0 rgba(239,68,68,0); }
-  }
-  .speak-tip { font-size:0.85rem; color:var(--muted); margin-top:1rem; }
-  .speak-result {
-    background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3);
-    border-radius:12px; padding:1rem; margin-top:1rem; display:none;
-  }
-  .speak-result.show { display:block; animation:fadeIn 0.3s; }
-  .speak-result p { color:var(--green); font-weight:600; }
-  .speak-phrases-list {
-    display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; text-align:right;
-  }
-  .speak-phrases-list button {
-    background:rgba(255,255,255,0.04); border:1px solid var(--border);
-    border-radius:12px; padding:0.8rem; font-family:'Cairo',sans-serif;
-    font-size:0.85rem; color:var(--text); cursor:pointer; transition:all 0.2s;
-    text-align:center;
-  }
-  .speak-phrases-list button:hover { border-color:rgba(245,200,66,0.4); color:var(--gold); }
-  .speak-phrases-list button .sp-en { font-size:0.95rem; font-weight:700; color:var(--gold); display:block; direction:ltr; }
-  .speak-phrases-list button .sp-ar { font-size:0.78rem; color:var(--muted); display:block; }
-
-  /* ===== MODAL ===== */
-  .modal-overlay {
-    position:fixed; inset:0; background:rgba(0,0,0,0.7);
-    backdrop-filter:blur(6px); z-index:200; display:none;
-    align-items:center; justify-content:center; padding:1rem;
-  }
-  .modal-overlay.show { display:flex; animation:fadeIn 0.2s; }
-  .modal-box {
-    background:var(--card); border-radius:20px; border:1px solid var(--border);
-    padding:2rem; max-width:400px; width:100%; text-align:center;
-  }
-  .modal-icon { font-size:3rem; margin-bottom:1rem; }
-  .modal-title { font-size:1.3rem; font-weight:900; margin-bottom:0.5rem; }
-  .modal-body { color:var(--muted); margin-bottom:1.5rem; line-height:1.7; font-size:0.9rem; }
-  .modal-close {
-    background:rgba(255,255,255,0.08); border:1px solid var(--border);
-    border-radius:10px; padding:0.6rem 1.5rem; color:var(--text);
-    font-family:'Cairo',sans-serif; cursor:pointer; transition:all 0.2s;
-  }
-  .modal-close:hover { background:rgba(255,255,255,0.12); }
-
-  /* ===== STREAKS ===== */
-  .streak-dots { display:flex; gap:0.5rem; justify-content:center; margin:1rem 0; }
-  .streak-dot {
-    width:36px; height:36px; border-radius:10px;
-    background:rgba(255,255,255,0.05); border:1px solid var(--border);
-    display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:var(--muted);
-    flex-direction:column; gap:1px;
-  }
-  .streak-dot.done { background:rgba(245,200,66,0.15); border-color:rgba(245,200,66,0.4); color:var(--gold); }
-  .streak-dot .dot-day { font-size:0.6rem; }
-
-  /* Scroll */
-  ::-webkit-scrollbar { width:5px; }
-  ::-webkit-scrollbar-track { background:transparent; }
-  ::-webkit-scrollbar-thumb { background:var(--card2); border-radius:3px; }
-
-  @media(max-width:600px) {
-    .modules-grid { grid-template-columns:1fr 1fr; gap:1rem; padding:1rem; }
-    .stats-row { gap:0.5rem; }
-    .stat-box { min-width:100px; padding:0.7rem 1rem; }
-    nav button span { display:none; }
-    .speak-phrases-list { grid-template-columns:1fr; }
-    .words-grid { grid-template-columns:1fr 1fr; }
-  }
+  .lb-x:hover{background:rgba(255,255,255,.22);}
+  @media(max-width:600px){.grid{columns:1;}}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <span class="logo-icon">🎓</span>
-    إنجلش ماستر
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <div class="hero-tag">\ud83c\udf3f \u0645\u062d\u0627\u0641\u0638\u0629 \u0627\u0644\u0633\u0644\u064a\u0645\u0627\u0646\u064a\u0629 \u2014 \u0643\u0631\u062f\u0633\u062a\u0627\u0646 \u0627\u0644\u0639\u0631\u0627\u0642</div>
+    <h1>\u0637\u0628\u064a\u0639\u0629 <em>\u0627\u0644\u0633\u0644\u064a\u0645\u0627\u0646\u064a\u0629</em></h1>
+    <p class="hero-sub">\u062c\u0628\u0627\u0644 \u2022 \u0628\u062d\u064a\u0631\u0627\u062a \u2022 \u0634\u0644\u0627\u0644\u0627\u062a \u2022 \u0643\u0647\u0648\u0641 \u2022 \u0648\u062f\u064a\u0627\u0646</p>
   </div>
-  <nav>
-    <button class="active" onclick="showPage('home')" id="nav-home">🏠 <span>الرئيسية</span></button>
-    <button onclick="showPage('chat')" id="nav-chat">🤖 <span>المحادثة</span></button>
-    <button onclick="showPage('quiz')" id="nav-quiz">📝 <span>اختبار</span></button>
-    <button onclick="showPage('vocab')" id="nav-vocab">📚 <span>مفردات</span></button>
-    <button onclick="showPage('lessons')" id="nav-lessons">🎓 <span>دروس</span></button>
-    <button onclick="showPage('speaking')" id="nav-speaking">🎙️ <span>نطق</span></button>
-  </nav>
-  <div class="xp-bar">⭐ <span class="xp-val" id="xp-display">0</span> XP</div>
-</header>
+  <div class="arrow">\u0627\u0643\u062a\u0634\u0641</div>
+</section>
 
-<main>
+<nav>
+  <span class="logo">\u0637\u0628\u064a\u0639\u0629 <span>\u0633\u0644\u06ce\u0645\u0627\u0646\u06cc</span></span>
+  <span style="color:rgba(255,255,255,.35);font-size:.75rem;letter-spacing:.12em">Kurdistan \u2022 Iraq</span>
+</nav>
 
-<!-- ===== HOME ===== -->
-<div class="page active" id="page-home">
-  <div class="hero">
-    <h1>تعلّم الإنجليزية<br><span>بأسلوب ذكي ومثير</span></h1>
-    <p>منصة تعليمية متكاملة تجمع بين الذكاء الاصطناعي، الاختبارات التفاعلية، والدروس المنظمة<br>لمساعدتك على إتقان الإنجليزية من الصفر</p>
-    <div class="hero-cta">
-      <button class="btn-primary" onclick="showPage('chat')">🤖 ابدأ المحادثة مع الذكاء الاصطناعي</button>
-      <button class="btn-secondary" onclick="showPage('lessons')">📚 تصفح الدروس</button>
-    </div>
-  </div>
-  <div class="stats-row">
-    <div class="stat-box">
-      <div class="stat-num" id="stat-xp">0</div>
-      <div class="stat-label">نقطة XP</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stat-words">0</div>
-      <div class="stat-label">كلمة تعلمتها</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stat-lessons">0</div>
-      <div class="stat-label">درس أكملته</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stat-streak">0</div>
-      <div class="stat-label">يوم متتالي 🔥</div>
-    </div>
-  </div>
-  <div class="streak-dots" id="streak-dots"></div>
-  <div class="modules-grid">
-    <div class="module-card" onclick="showPage('chat')">
-      <span class="module-icon">🤖</span>
-      <div class="module-badge">AI</div>
-      <div class="module-title">المحادثة مع الذكاء الاصطناعي</div>
-      <div class="module-desc">تحدث مع مساعد ذكي يعلمك الإنجليزية ويصحح أخطاءك بالعربي</div>
-    </div>
-    <div class="module-card" onclick="showPage('quiz')">
-      <span class="module-icon">🎯</span>
-      <div class="module-title">اختبارات تفاعلية</div>
-      <div class="module-desc">اختبر معلوماتك بأسئلة متنوعة: اختيار متعدد، تعبئة الفراغ، ترجمة</div>
-    </div>
-    <div class="module-card" onclick="showPage('vocab')">
-      <span class="module-icon">📚</span>
-      <div class="module-title">مكتبة المفردات</div>
-      <div class="module-desc">مئات الكلمات الإنجليزية مصنفة بأمثلة وترجمة عربية واضحة</div>
-    </div>
-    <div class="module-card" onclick="showPage('speaking')">
-      <span class="module-icon">🎙️</span>
-      <div class="module-badge">جديد</div>
-      <div class="module-title">تدريب النطق</div>
-      <div class="module-desc">تدرب على نطق الكلمات والجمل باستخدام المايكروفون والصوت</div>
-    </div>
-    <div class="module-card" onclick="showPage('lessons')">
-      <span class="module-icon">🎓</span>
-      <div class="module-title">دروس منظمة</div>
-      <div class="module-desc">دروس من الصفر للمتقدم تغطي القواعد والمفردات والتواصل</div>
-    </div>
-    <div class="module-card" onclick="showPage('quiz');setTimeout(()=>startQuiz('sentences'),300)">
-      <span class="module-icon">✍️</span>
-      <div class="module-title">بناء الجمل</div>
-      <div class="module-desc">تعلم كيف تركب جملاً إنجليزية صحيحة من البداية</div>
-    </div>
-  </div>
+<div class="sec-head">
+  <div class="tag">\ud83d\udcf8 \u0623\u0645\u0627\u0643\u0646 \u0637\u0628\u064a\u0639\u064a\u0629 \u062d\u0642\u064a\u0642\u064a\u0629</div>
+  <h2>\u0623\u062c\u0645\u0644 \u0627\u0644\u0645\u0639\u0627\u0644\u0645 \u0627\u0644\u0637\u0628\u064a\u0639\u064a\u0629 \u0641\u064a \u0627\u0644\u0645\u062d\u0627\u0641\u0638\u0629</h2>
 </div>
 
-<!-- ===== CHAT PAGE ===== -->
-<div class="page" id="page-chat">
-  <div class="chat-container">
-    <div class="chat-header">
-      <div class="ai-avatar">🤖</div>
-      <div class="ai-info">
-        <h3>مساعد الإنجليزية الذكي</h3>
-        <p>يتحدث بالعربي ويعلمك الإنجليزية بذكاء</p>
-      </div>
-      <div class="ai-status"></div>
-    </div>
-    <div class="quick-prompts">
-      <button class="quick-btn" onclick="sendQuick('علمني كلمات جديدة')">📚 كلمات جديدة</button>
-      <button class="quick-btn" onclick="sendQuick('كيف أقول هذا بالإنجليزي؟')">💬 ترجمة</button>
-      <button class="quick-btn" onclick="sendQuick('اشرح لي قاعدة Present Simple')">📖 قواعد</button>
-      <button class="quick-btn" onclick="sendQuick('تمرين على المحادثة')">🗣️ محادثة</button>
-      <button class="quick-btn" onclick="sendQuick('صحح أخطائي الإنجليزية')">✅ تصحيح</button>
-    </div>
-    <div class="chat-messages" id="chat-messages">
-      <div class="msg">
-        <div class="msg-avatar ai-av">🤖</div>
-        <div class="msg-bubble">
-          مرحباً! أنا مساعدك لتعلم الإنجليزية 🎉<br><br>
-          يمكنني مساعدتك في:<br>
-          • تعلم <span class="en-word" onclick="speakWord('vocabulary')">vocabulary</span> (المفردات)<br>
-          • شرح <span class="en-word" onclick="speakWord('grammar')">grammar</span> (القواعد)<br>
-          • تدريب <span class="en-word" onclick="speakWord('conversation')">conversation</span> (المحادثة)<br><br>
-          اكتب سؤالك بالعربي أو الإنجليزي وسأساعدك! 😊
-        </div>
-      </div>
-    </div>
-    <div class="chat-input-row">
-      <button class="send-btn" onclick="sendMessage()" id="send-btn">إرسال ✈️</button>
-      <input class="chat-input" id="chat-input" placeholder="اكتب سؤالك بالعربي..." onkeydown="if(event.key==='Enter')sendMessage()">
-    </div>
-  </div>
-</div>
+<div class="grid" id="gallery"></div>
 
-<!-- ===== QUIZ PAGE ===== -->
-<div class="page" id="page-quiz">
-  <div class="quiz-container">
-    <div class="quiz-header">
-      <h2>🎯 اختبر نفسك</h2>
-      <p style="color:var(--muted);font-size:0.9rem">اختر مستواك ونوع الاختبار</p>
-    </div>
-    <div id="quiz-setup">
-      <div class="quiz-level-select">
-        <button class="level-btn active" onclick="setLevel('beginner',this)">🌱 مبتدئ</button>
-        <button class="level-btn" onclick="setLevel('intermediate',this)">🌿 متوسط</button>
-        <button class="level-btn" onclick="setLevel('advanced',this)">🌳 متقدم</button>
-      </div>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:1.5rem 0;">
-        <button class="btn-primary" onclick="startQuiz('mcq')">🎯 اختيار متعدد</button>
-        <button class="btn-secondary" onclick="startQuiz('fill')">✍️ تعبئة الفراغ</button>
-        <button class="btn-secondary" onclick="startQuiz('sentences')">🔤 ترتيب الجملة</button>
-      </div>
-      <div class="score-display">
-        <div class="score-item"><div class="score-num green" id="q-correct">0</div><div class="score-lbl">إجابات صحيحة</div></div>
-        <div class="score-item"><div class="score-num red" id="q-wrong">0</div><div class="score-lbl">إجابات خاطئة</div></div>
-        <div class="score-item"><div class="score-num" id="q-total" style="color:var(--cyan)">0</div><div class="score-lbl">إجمالي الأسئلة</div></div>
-      </div>
-    </div>
-    <div id="quiz-area" style="display:none;"></div>
-  </div>
-</div>
-
-<!-- ===== VOCAB PAGE ===== -->
-<div class="page" id="page-vocab">
-  <div class="vocab-container">
-    <h2 style="font-size:1.6rem;font-weight:900;margin-bottom:1rem;">📚 مكتبة المفردات</h2>
-    <div class="search-bar-wrap">
-      <span class="search-icon">🔍</span>
-      <input class="search-bar" id="vocab-search" placeholder="ابحث عن كلمة..." oninput="filterVocab()">
-    </div>
-    <div class="vocab-categories" id="vocab-cats"></div>
-    <div class="words-grid" id="words-grid"></div>
-  </div>
-</div>
-
-<!-- ===== LESSONS PAGE ===== -->
-<div class="page" id="page-lessons">
-  <div class="lessons-container">
-    <div class="lesson-list" id="lesson-list"></div>
-    <div class="lesson-detail" id="lesson-detail">
-      <button class="back-btn" onclick="closeLessonDetail()">← العودة للدروس</button>
-      <div id="lesson-content"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SPEAKING PAGE ===== -->
-<div class="page" id="page-speaking">
-  <div class="speaking-container">
-    <h2 style="font-size:1.6rem;font-weight:900;margin-bottom:0.5rem;">🎙️ تدريب النطق</h2>
-    <p style="color:var(--muted);margin-bottom:1.5rem;">استمع للكلمة ثم انطقها، أو اختر من القائمة</p>
-    <div class="speaking-card">
-      <div class="speak-phrase-en" id="speak-en">Hello</div>
-      <div class="speak-phrase-ar" id="speak-ar">مرحباً</div>
-      <button class="btn-secondary" style="margin-bottom:1rem;" onclick="listenPhrase()">🔊 استمع للنطق</button>
-      <br>
-      <button class="mic-btn" id="mic-btn" onclick="toggleMic()">🎙️</button>
-      <p class="speak-tip" id="mic-tip">اضغط لتسجيل صوتك</p>
-      <div class="speak-result" id="speak-result">
-        <p id="speak-result-text">✅ رائع! نطقك صحيح</p>
-      </div>
-    </div>
-    <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;text-align:right;">اختر جملة للتدرب:</h3>
-    <div class="speak-phrases-list" id="speak-phrases"></div>
-  </div>
-</div>
-
-</main>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-box">
-    <div class="modal-icon" id="modal-icon">🎉</div>
-    <div class="modal-title" id="modal-title">أحسنت!</div>
-    <div class="modal-body" id="modal-body">لقد أجبت بشكل صحيح!</div>
-    <button class="modal-close" onclick="closeModal()">حسناً</button>
-  </div>
-</div>
-
-<script>
-// ===== STATE =====
-let xp = parseInt(localStorage.getItem('xp')||'0');
-let wordsLearned = parseInt(localStorage.getItem('wl')||'0');
-let lessonsCompleted = parseInt(localStorage.getItem('lc')||'0');
-let learnedWords = JSON.parse(localStorage.getItem('learned')||'[]');
-let streak = parseInt(localStorage.getItem('streak')||'1');
-let chatHistory = [];
-let quizLevel = 'beginner';
-let qCorrect = 0, qWrong = 0, qTotal = 0;
-let currentQuizIdx = 0;
-let currentQuizData = [];
-let quizType = 'mcq';
-let micListening = false;
-let recognition = null;
-let currentVocabCat = 'الكل';
-
-// ===== DATA =====
-const vocabulary = [
-  // أساسيات
-  {en:'Hello', ar:'مرحباً', ex:'Hello, how are you?', cat:'تحيات'},
-  {en:'Goodbye', ar:'وداعاً', ex:'Goodbye, see you tomorrow!', cat:'تحيات'},
-  {en:'Thank you', ar:'شكراً', ex:'Thank you for your help.', cat:'تحيات'},
-  {en:'Please', ar:'من فضلك', ex:'Can you help me please?', cat:'تحيات'},
-  {en:'Sorry', ar:'آسف', ex:'Sorry, I did not understand.', cat:'تحيات'},
-  {en:'Yes', ar:'نعم', ex:'Yes, that is correct.', cat:'تحيات'},
-  {en:'No', ar:'لا', ex:'No, thank you.', cat:'تحيات'},
-  {en:'Good morning', ar:'صباح الخير', ex:'Good morning everyone!', cat:'تحيات'},
-  {en:'Good night', ar:'تصبح على خير', ex:'Good night, sleep well.', cat:'تحيات'},
-  // أرقام
-  {en:'One', ar:'واحد', ex:'I have one book.', cat:'أرقام'},
-  {en:'Two', ar:'اثنان', ex:'Two apples please.', cat:'أرقام'},
-  {en:'Three', ar:'ثلاثة', ex:'I have three cats.', cat:'أرقام'},
-  {en:'Ten', ar:'عشرة', ex:'Ten minutes later.', cat:'أرقام'},
-  {en:'Hundred', ar:'مئة', ex:'One hundred dollars.', cat:'أرقام'},
-  // ألوان
-  {en:'Red', ar:'أحمر', ex:'The red car is fast.', cat:'ألوان'},
-  {en:'Blue', ar:'أزرق', ex:'The sky is blue.', cat:'ألوان'},
-  {en:'Green', ar:'أخضر', ex:'Green apples are sour.', cat:'ألوان'},
-  {en:'Black', ar:'أسود', ex:'I like black coffee.', cat:'ألوان'},
-  {en:'White', ar:'أبيض', ex:'The white dress is beautiful.', cat:'ألوان'},
-  {en:'Yellow', ar:'أصفر', ex:'The sun is yellow.', cat:'ألوان'},
-  // أفعال
-  {en:'Eat', ar:'يأكل', ex:'I eat breakfast every day.', cat:'أفعال'},
-  {en:'Drink', ar:'يشرب', ex:'She drinks water.', cat:'أفعال'},
-  {en:'Sleep', ar:'ينام', ex:'I sleep eight hours.', cat:'أفعال'},
-  {en:'Work', ar:'يعمل', ex:'He works in a hospital.', cat:'أفعال'},
-  {en:'Learn', ar:'يتعلم', ex:'We learn English together.', cat:'أفعال'},
-  {en:'Speak', ar:'يتحدث', ex:'Can you speak English?', cat:'أفعال'},
-  {en:'Write', ar:'يكتب', ex:'Please write your name.', cat:'أفعال'},
-  {en:'Read', ar:'يقرأ', ex:'I read books every night.', cat:'أفعال'},
-  {en:'Think', ar:'يفكر', ex:'Think before you speak.', cat:'أفعال'},
-  {en:'Love', ar:'يحب', ex:'I love my family.', cat:'أفعال'},
-  // اسم مكان
-  {en:'School', ar:'مدرسة', ex:'I go to school every day.', cat:'أماكن'},
-  {en:'Hospital', ar:'مستشفى', ex:'The hospital is near here.', cat:'أماكن'},
-  {en:'Restaurant', ar:'مطعم', ex:'Let us eat at the restaurant.', cat:'أماكن'},
-  {en:'Airport', ar:'مطار', ex:'The airport is very busy.', cat:'أماكن'},
-  {en:'Market', ar:'سوق', ex:'I buy food at the market.', cat:'أماكن'},
-  {en:'Home', ar:'منزل', ex:'I am going home now.', cat:'أماكن'},
-  {en:'Office', ar:'مكتب', ex:'My office is on floor three.', cat:'أماكن'},
-  // وقت
-  {en:'Morning', ar:'الصباح', ex:'I wake up in the morning.', cat:'وقت'},
-  {en:'Evening', ar:'المساء', ex:'Good evening everyone.', cat:'وقت'},
-  {en:'Today', ar:'اليوم', ex:'What are you doing today?', cat:'وقت'},
-  {en:'Tomorrow', ar:'غداً', ex:'See you tomorrow!', cat:'وقت'},
-  {en:'Yesterday', ar:'أمس', ex:'I saw him yesterday.', cat:'وقت'},
-  {en:'Week', ar:'أسبوع', ex:'I work five days a week.', cat:'وقت'},
-  {en:'Year', ar:'سنة', ex:'Happy new year!', cat:'وقت'},
-  // جسم
-  {en:'Eye', ar:'عين', ex:'She has beautiful eyes.', cat:'جسم'},
-  {en:'Hand', ar:'يد', ex:'Wash your hands!', cat:'جسم'},
-  {en:'Heart', ar:'قلب', ex:'My heart beats fast.', cat:'جسم'},
-  {en:'Head', ar:'رأس', ex:'My head hurts today.', cat:'جسم'},
-  {en:'Mouth', ar:'فم', ex:'Open your mouth, please.', cat:'جسم'},
-];
-
-const lessons = [
-  {id:1, title:'تحيات أساسية', sub:'Hello, Hi, Good morning...', icon:'👋', done:false,
-    sections:[
-      {type:'intro', title:'مقدمة الدرس', content:'في هذا الدرس ستتعلم كيفية التحية باللغة الإنجليزية. التحيات هي أول ما تحتاجه عند مقابلة أشخاص جدد!'},
-      {type:'examples', title:'التحيات الأساسية', examples:[
-        {en:'Hello / Hi', ar:'مرحباً (رسمي وغير رسمي)'},
-        {en:'Good morning', ar:'صباح الخير (من الفجر حتى الظهر)'},
-        {en:'Good afternoon', ar:'مساء الخير (من الظهر للمغرب)'},
-        {en:'Good evening', ar:'مساء الخير (بعد المغرب)'},
-        {en:'Good night', ar:'تصبح على خير (عند النوم)'},
-      ]},
-      {type:'examples', title:'السؤال عن الحال', examples:[
-        {en:'How are you?', ar:'كيف حالك؟'},
-        {en:'I am fine, thank you', ar:'أنا بخير، شكراً'},
-        {en:'Nice to meet you', ar:'سعيد بمقابلتك'},
-      ]},
-      {type:'tip', title:'💡 نصيحة', content:'استخدم "Hi" مع الأصدقاء و "Hello" في المواقف الرسمية. الاسمان صحيحان لكن لكل منهما موقفه!'},
-    ]
-  },
-  {id:2, title:'أرقام وحروف', sub:'Numbers 1-100 & Alphabet', icon:'🔢', done:false,
-    sections:[
-      {type:'intro', title:'الأرقام من 1 إلى 20', content:'الأرقام أساس اللغة. ستحتاجها يومياً للوقت، الأسعار، التواريخ والمزيد!'},
-      {type:'examples', title:'الأرقام 1-10', examples:[
-        {en:'One, Two, Three', ar:'واحد، اثنان، ثلاثة'},
-        {en:'Four, Five, Six', ar:'أربعة، خمسة، ستة'},
-        {en:'Seven, Eight, Nine, Ten', ar:'سبعة، ثمانية، تسعة، عشرة'},
-      ]},
-      {type:'examples', title:'الأرقام الكبيرة', examples:[
-        {en:'Twenty / Twenty-one', ar:'عشرون / واحد وعشرون'},
-        {en:'Hundred', ar:'مئة'},
-        {en:'Thousand', ar:'ألف'},
-        {en:'Million', ar:'مليون'},
-      ]},
-    ]
-  },
-  {id:3, title:'الضمائر والفعل To Be', sub:'I am, You are, He is...', icon:'🗣️', done:false,
-    sections:[
-      {type:'intro', title:'الضمائر الشخصية', content:'الضمائر أساس بناء الجمل. دعنا نتعلمها مع الفعل "To Be" (يكون)'},
-      {type:'examples', title:'الضمائر + To Be', examples:[
-        {en:'I am a student', ar:'أنا طالب'},
-        {en:'You are my friend', ar:'أنت صديقي'},
-        {en:'He is a doctor', ar:'هو طبيب'},
-        {en:'She is beautiful', ar:'هي جميلة'},
-        {en:'We are happy', ar:'نحن سعداء'},
-        {en:'They are students', ar:'هم طلاب'},
-      ]},
-      {type:'examples', title:'النفي مع To Be', examples:[
-        {en:'I am not tired', ar:'أنا لست متعباً'},
-        {en:'He is not here', ar:'هو ليس هنا'},
-        {en:'We are not late', ar:'نحن لسنا متأخرين'},
-      ]},
-      {type:'tip', title:'💡 قاعدة مهمة', content:'الاختصارات: I am = I\'m | He is = He\'s | They are = They\'re. هذه الاختصارات تُستخدم كثيراً في الحديث!'},
-    ]
-  },
-  {id:4, title:'Present Simple', sub:'فعل المضارع البسيط', icon:'⏰', done:false,
-    sections:[
-      {type:'intro', title:'متى نستخدمه؟', content:'نستخدم Present Simple للعادات اليومية والحقائق الثابتة. مثل: أنا أذهب للعمل يومياً.'},
-      {type:'examples', title:'أمثلة يومية', examples:[
-        {en:'I eat breakfast every morning', ar:'أنا آكل الفطور كل صباح'},
-        {en:'She works in a hospital', ar:'هي تعمل في مستشفى'},
-        {en:'They play football on Fridays', ar:'يلعبون كرة القدم أيام الجمعة'},
-        {en:'The sun rises in the east', ar:'الشمس تشرق من الشرق'},
-      ]},
-      {type:'examples', title:'قاعدة He/She/It + s', examples:[
-        {en:'I work → He works', ar:'أنا أعمل → هو يعمل (أضف s)'},
-        {en:'I eat → She eats', ar:'أنا آكل → هي تأكل (أضف s)'},
-        {en:'I go → He goes', ar:'أنا أذهب → هو يذهب (أضف es)'},
-      ]},
-    ]
-  },
-  {id:5, title:'التسوق والأسعار', sub:'Shopping & Prices', icon:'🛒', done:false,
-    sections:[
-      {type:'intro', title:'في المحل', content:'جمل مهمة ستحتاجها عند التسوق باللغة الإنجليزية في أي بلد!'},
-      {type:'examples', title:'جمل التسوق', examples:[
-        {en:'How much is this?', ar:'بكم هذا؟'},
-        {en:'Can I try this on?', ar:'هل يمكنني تجربة هذا؟'},
-        {en:'I would like to buy...', ar:'أريد أن أشتري...'},
-        {en:'Do you have this in blue?', ar:'هل عندك هذا باللون الأزرق؟'},
-        {en:'Can I pay by card?', ar:'هل يمكنني الدفع ببطاقة؟'},
-      ]},
-    ]
-  },
-  {id:6, title:'المحادثة اليومية', sub:'Daily Conversations', icon:'💬', done:false,
-    sections:[
-      {type:'intro', title:'الحوار اليومي', content:'جمل تحتاجها في حياتك اليومية. حفظها سيجعل محادثتك الإنجليزية طبيعية!'},
-      {type:'examples', title:'جمل يومية مهمة', examples:[
-        {en:'What time is it?', ar:'كم الساعة؟'},
-        {en:'Can you repeat that please?', ar:'هل يمكنك التكرار؟'},
-        {en:'I do not understand', ar:'لا أفهم'},
-        {en:'Can you speak slowly?', ar:'هل يمكنك التحدث ببطء؟'},
-        {en:'Where is the bathroom?', ar:'أين الحمام؟'},
-        {en:'I am looking for...', ar:'أنا أبحث عن...'},
-      ]},
-    ]
-  },
-];
-
-const quizData = {
-  beginner: [
-    {type:'mcq', q:'ما معنى كلمة "Hello"؟', opts:['وداعاً','مرحباً','شكراً','نعم'], answer:1},
-    {type:'mcq', q:'كيف تقول "شكراً" بالإنجليزي؟', opts:['Sorry','Please','Thank you','Hello'], answer:2},
-    {type:'mcq', q:'ما معنى "Red"؟', opts:['أزرق','أصفر','أحمر','أخضر'], answer:2},
-    {type:'fill', q:'أكمل: "Good ___, how are you?"', answer:'morning', hint:'صباح الخير'},
-    {type:'fill', q:'أكمل: "I ___ a student"', answer:'am', hint:'فعل الكون مع I'},
-    {type:'mcq', q:'ما معنى "Eat"؟', opts:['يشرب','ينام','يأكل','يعمل'], answer:2},
-    {type:'mcq', q:'كيف تقول "أنا بخير"؟', opts:['I am fine','I am bad','I am sad','I am tired'], answer:0},
-    {type:'fill', q:'أكمل: "She ___ beautiful"', answer:'is', hint:'فعل الكون مع She'},
-    {type:'mcq', q:'ما معنى "School"؟', opts:['مستشفى','مطعم','مدرسة','مطار'], answer:2},
-    {type:'mcq', q:'ما ترجمة "Good night"؟', opts:['صباح الخير','مساء الخير','تصبح على خير','أهلاً'], answer:2},
-  ],
-  intermediate: [
-    {type:'mcq', q:'أي جملة صحيحة نحوياً؟', opts:['She go to school','She goes to school','She going to school','She goed to school'], answer:1},
-    {type:'fill', q:'أكمل: "I ___ breakfast every morning"', answer:'eat', hint:'Present Simple'},
-    {type:'mcq', q:'ما معنى "I am not sure"؟', opts:['أنا متأكد','لست متأكداً','أنا فرحان','لست هنا'], answer:1},
-    {type:'mcq', q:'متى نضيف "s" للفعل؟', opts:['مع I','مع You','مع He/She/It','مع They'], answer:2},
-    {type:'fill', q:'أكمل: "Can you ___ more slowly?"', answer:'speak', hint:'يتحدث/ينطق'},
-    {type:'mcq', q:'ما معنى "How much is this?"؟', opts:['كيف حالك؟','كم عمرك؟','بكم هذا؟','أين هذا؟'], answer:2},
-    {type:'mcq', q:'ما معنى "I do not understand"؟', opts:['أنا أفهم','لا أفهم','هل تفهم؟','افهم هذا'], answer:1},
-    {type:'fill', q:'أكمل: "They ___ students"', answer:'are', hint:'جمع مع They'},
-    {type:'mcq', q:'أي كلمة تعني "غداً"؟', opts:['Yesterday','Today','Tomorrow','Week'], answer:2},
-    {type:'mcq', q:'كيف تختصر "I am"؟', opts:["I'm","I'd","I've","I'll"], answer:0},
-  ],
-  advanced: [
-    {type:'mcq', q:'أي جملة تعبر عن عادة ماضية؟', opts:['I used to smoke','I was smoking','I had smoked','I have smoked'], answer:0},
-    {type:'fill', q:'أكمل: "If I ___ you, I would study more"', answer:'were', hint:'Second conditional'},
-    {type:'mcq', q:'ما الفرق بين "Since" و "For"؟', opts:['لا فرق','Since للمدة، For للوقت المحدد','Since لنقطة زمنية، For للمدة','Since للماضي فقط'], answer:2},
-    {type:'mcq', q:'أي جملة صحيحة؟', opts:['I have went','I have gone','I have go','I went have'], answer:1},
-    {type:'fill', q:'أكمل: "She ___ working here for five years"', answer:'has been', hint:'Present Perfect Continuous'},
-    {type:'mcq', q:'ما معنى "Nevertheless"؟', opts:['بالإضافة','ومع ذلك','لذلك','لأن'], answer:1},
-    {type:'mcq', q:'ما الجملة الشرطية الصحيحة؟', opts:['If it will rain, I stay home','If it rains, I will stay home','If it rained, I stayed home','If it rain, I stay home'], answer:1},
-    {type:'fill', q:'أكمل: "The book ___ (write) by Shakespeare"', answer:'was written', hint:'Passive Voice'},
-    {type:'mcq', q:'أي كلمة تعني "بالرغم من"؟', opts:['Therefore','Moreover','Although','However'], answer:2},
-    {type:'mcq', q:'ما معنى "Procrastinate"؟', opts:['يتقدم','يتأخر','يؤجل الأعمال','يرفض'], answer:2},
-  ]
-};
-
-const speakingPhrases = [
-  {en:'Hello, how are you?', ar:'مرحباً، كيف حالك؟'},
-  {en:'My name is...', ar:'اسمي...'},
-  {en:'Nice to meet you', ar:'سعيد بمقابلتك'},
-  {en:'Can you help me?', ar:'هل يمكنك مساعدتي؟'},
-  {en:'Where are you from?', ar:'من أين أنت؟'},
-  {en:'I love learning English', ar:'أحب تعلم الإنجليزية'},
-  {en:'What time is it?', ar:'كم الساعة؟'},
-  {en:'Thank you very much', ar:'شكراً جزيلاً'},
-  {en:'See you tomorrow', ar:'إلى اللقاء غداً'},
-  {en:'I am from Iraq', ar:'أنا من العراق'},
-];
-
-// ===== INIT =====
-function init() {
-  updateUI();
-  buildStreak();
-  buildVocab();
-  buildLessons();
-  buildSpeakPhrases();
-}
-
-function updateUI() {
-  document.getElementById('xp-display').textContent = xp;
-  document.getElementById('stat-xp').textContent = xp;
-  document.getElementById('stat-words').textContent = wordsLearned;
-  document.getElementById('stat-lessons').textContent = lessonsCompleted;
-  document.getElementById('stat-streak').textContent = streak;
-}
-
-function saveState() {
-  localStorage.setItem('xp', xp);
-  localStorage.setItem('wl', wordsLearned);
-  localStorage.setItem('lc', lessonsCompleted);
-  localStorage.setItem('learned', JSON.stringify(learnedWords));
-  localStorage.setItem('streak', streak);
-  updateUI();
-}
-
-function addXP(amount) {
-  xp += amount;
-  saveState();
-  showXPFlash(amount);
-}
-
-function showXPFlash(amount) {
-  const el = document.createElement('div');
-  el.textContent = `+${amount} XP ⭐`;
-  el.style.cssText = `position:fixed;top:80px;right:20px;background:rgba(245,200,66,0.9);color:#000;font-weight:900;font-family:Cairo,sans-serif;padding:0.5rem 1rem;border-radius:20px;z-index:500;animation:xpFly 1.5s ease forwards;pointer-events:none;font-size:0.9rem;`;
-  document.head.insertAdjacentHTML('beforeend',`<style>@keyframes xpFly{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-60px)}}</style>`);
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(), 1500);
-}
-
-function buildStreak() {
-  const days = ['أح','إث','ثل','أر','خم','جم','سب'];
-  const today = new Date().getDay();
-  const container = document.getElementById('streak-dots');
-  container.innerHTML = '';
-  for(let i=0;i<7;i++){
-    const d = document.createElement('div');
-    d.className = 'streak-dot' + (i<=today?' done':'');
-    d.innerHTML = `<span>${days[i]}</span><span>${i<=today?'✓':''}</span>`;
-    container.appendChild(d);
-  }
-}
-
-// ===== PAGE NAV =====
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  document.getElementById('nav-'+name).classList.add('active');
-  const ld = document.getElementById('lesson-detail');
-  const ll = document.querySelector('.lessons-container .lesson-list');
-  if(ld) ld.classList.remove('active');
-  if(ll) ll.style.display='flex';
-}
-
-// ===== CHAT =====
-async function sendMessage() {
-  const input = document.getElementById('chat-input');
-  const msg = input.value.trim();
-  if(!msg) return;
-  addChatMsg(msg, 'user');
-  input.value = '';
-  document.getElementById('send-btn').disabled = true;
-  addTyping();
-  chatHistory.push({role:'user', content:msg});
-
-  try {
-    const sysPrompt = `أنت مساعد ذكي متخصص في تعليم اللغة الإنجليزية للناطقين بالعربية. قواعد مهمة:
-1. تتحدث بالعربي بشكل رئيسي
-2. عند ذكر كلمات إنجليزية، ضعها بين علامتي ** مثل **Hello** حتى يتم تمييزها
-3. اشرح القواعد بطريقة بسيطة وممتعة مع أمثلة
-4. صحح الأخطاء بلطف وإيجابية
-5. قدم أمثلة عملية من الحياة اليومية
-6. كن متحمساً ومشجعاً للمتعلم
-7. إذا كتب باللغة الإنجليزية، صحح أخطاءه بلطف
-8. قدم 3-5 نقاط عند شرح موضوع
-9. استخدم الإيموجي لجعل المحادثة ممتعة`;
-
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system: sysPrompt,
-        messages: chatHistory.slice(-10)
-      })
-    });
-    const data = await res.json();
-    removeTyping();
-    const reply = data.content[0].text;
-    chatHistory.push({role:'assistant', content:reply});
-    addChatMsg(reply, 'ai');
-    addXP(5);
-  } catch(e) {
-    removeTyping();
-    addChatMsg('عذراً، حدث خطأ في الاتصال. حاول مرة أخرى! 🔄', 'ai');
-  }
-  document.getElementById('send-btn').disabled = false;
-}
-
-function addChatMsg(text, role) {
-  const container = document.getElementById('chat-messages');
-  const div = document.createElement('div');
-  div.className = 'msg ' + role;
-  const avatar = role === 'ai' ? '🤖' : '😊';
-  const avClass = role === 'ai' ? 'ai-av' : 'user-av';
-
-  let formatted = text
-    .replace(/\*\*(.*?)\*\*/g, '<span class="en-word" onclick="speakWord(\'$1\')">$1</span>')
-    .replace(/\n/g,'<br>');
-
-  div.innerHTML = `
-    <div class="msg-avatar ${avClass}">${avatar}</div>
-    <div class="msg-bubble">${formatted}</div>
-  `;
-  container.appendChild(div);
-  container.scrollTop = container.scrollHeight;
-}
-
-function addTyping() {
-  const container = document.getElementById('chat-messages');
-  const div = document.createElement('div');
-  div.className = 'msg'; div.id = 'typing-msg';
-  div.innerHTML = `<div class="msg-avatar ai-av">🤖</div><div class="msg-bubble"><div class="typing-dot"><span></span><span></span><span></span></div></div>`;
-  container.appendChild(div);
-  container.scrollTop = container.scrollHeight;
-}
-
-function removeTyping() {
-  const t = document.getElementById('typing-msg');
-  if(t) t.remove();
-}
-
-function sendQuick(text) {
-  document.getElementById('chat-input').value = text;
-  sendMessage();
-}
+<footer>
+  <p>\u0623\u0645\u0627\u0643\u0646 \u0637\u0628\u064a\u0639\u064a\u0629 \u062d\u0642\u064a\u0642\u064a\u0629 \u0641\u064a <strong>\u0645\u062d\u0627\u0641\u0638\u0629 \u0627\u0644\u0633\u0644\u064a\u0645\u0627\u0646
