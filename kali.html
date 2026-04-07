@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abbas Basim | Kali Termux Environment</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kali-red: #e01f3d;
+  --kali-dark-red: #8b0000;
+  --kali-black: #0a0a0a;
+  --kali-dark: #111111;
+  --kali-card: #161616;
+  --kali-border: #2a0a0a;
+  --kali-cyan: #00d4ff;
+  --kali-green: #00ff88;
+  --kali-white: #e8e8e8;
+  --kali-dim: #444;
+  --glow-red: 0 0 20px rgba(224,31,61,0.7), 0 0 40px rgba(224,31,61,0.3);
+  --glow-cyan: 0 0 15px rgba(0,212,255,0.5);
+  --glow-green: 0 0 15px rgba(0,255,136,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--kali-black);
+  color: var(--kali-white);
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Scanline overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.05) 2px,
+    rgba(0,0,0,0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ── Background grid ── */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image:
+    linear-gradient(rgba(224,31,61,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224,31,61,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Dragon logo header ── */
+header {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0d0000 0%, var(--kali-black) 100%);
+  border-bottom: 2px solid var(--kali-red);
+  box-shadow: var(--glow-red);
+}
+
+.header-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% -20%, rgba(224,31,61,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(139,0,0,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(139,0,0,0.1) 0%, transparent 50%);
+}
+
+.logo-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 30px;
+  gap: 16px;
+}
+
+/* Kali dragon SVG */
+.kali-dragon {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 0 20px rgba(224,31,61,0.9)) drop-shadow(0 0 40px rgba(224,31,61,0.4));
+  animation: dragon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes dragon-pulse {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(224,31,61,0.9)) drop-shadow(0 0 40px rgba(224,31,61,0.4)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 35px rgba(224,31,61,1)) drop-shadow(0 0 70px rgba(224,31,61,0.6)); transform: scale(1.05); }
+}
+
+.logo-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 900;
+  color: var(--kali-red);
+  text-shadow: var(--glow-red);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  animation: flicker 8s infinite;
+}
+
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.7; }
+  97% { opacity: 1; }
+  98% { opacity: 0.8; }
+  99% { opacity: 1; }
+}
+
+.logo-subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  color: var(--kali-dim);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.author-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(224,31,61,0.08);
+  border: 1px solid rgba(224,31,61,0.3);
+  border-radius: 4px;
+  padding: 8px 20px;
+}
+
+.author-badge .dot {
+  width: 8px; height: 8px;
+  background: var(--kali-green);
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+  box-shadow: var(--glow-green);
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.author-badge span {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--kali-white);
+  letter-spacing: 2px;
+}
+
+.author-badge .academy {
+  color: var(--kali-red);
+  font-weight: 700;
+}
+
+/* ── Typed terminal ── */
+.terminal-header {
+  background: #0d0d0d;
+  border: 1px solid var(--kali-border);
+  border-radius: 8px 8px 0 0;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.term-dot { width: 12px; height: 12px; border-radius: 50%; }
+.term-dot.red { background: #ff5f56; }
+.term-dot.yellow { background: #ffbd2e; }
+.term-dot.green { background: #27c93f; }
+.term-title { font-size: 12px; color: var(--kali-dim); margin-left: auto; }
+
+.terminal-body {
+  background: #050505;
+  border: 1px solid var(--kali-border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 20px;
+  min-height: 200px;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow: hidden;
+}
+
+.prompt { color: var(--kali-red); }
+.prompt-path { color: var(--kali-cyan); }
+.prompt-git { color: var(--kali-green); }
+.cmd { color: var(--kali-white); }
+.output { color: #888; margin-left: 0; }
+.output.success { color: var(--kali-green); }
+.output.warning { color: #ffaa00; }
+.output.info { color: var(--kali-cyan); }
+.cursor {
+  display: inline-block;
+  width: 8px; height: 16px;
+  background: var(--kali-red);
+  animation: cursor-blink 1s infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+@keyframes cursor-blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── Main content ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--kali-red);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--kali-red) 0%, transparent 100%);
+  opacity: 0.4;
+}
+
+/* ── Cards ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--kali-card);
+  border: 1px solid var(--kali-border);
+  border-radius: 6px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--kali-red), transparent);
+}
+
+.card:hover {
+  border-color: rgba(224,31,61,0.5);
+  box-shadow: 0 0 25px rgba(224,31,61,0.15), inset 0 0 30px rgba(224,31,61,0.03);
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--kali-red);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.card-desc {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  color: #777;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.tag.red { background: rgba(224,31,61,0.15); color: var(--kali-red); border: 1px solid rgba(224,31,61,0.3); }
+.tag.cyan { background: rgba(0,212,255,0.1); color: var(--kali-cyan); border: 1px solid rgba(0,212,255,0.2); }
+.tag.green { background: rgba(0,255,136,0.1); color: var(--kali-green); border: 1px solid rgba(0,255,136,0.2); }
+
+/* ── Commands table ── */
+.cmd-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+
+.cmd-table th {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--kali-red);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--kali-border);
+  background: rgba(224,31,61,0.05);
+}
+
+.cmd-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(42,10,10,0.5);
+  font-size: 13px;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.cmd-table tr:hover td {
+  background: rgba(224,31,61,0.04);
+}
+
+.cmd-table .cmd-name { color: var(--kali-cyan); }
+.cmd-table .cmd-desc { color: #777; font-family: 'Rajdhani', sans-serif; font-size: 14px; }
+.cmd-table .cmd-cat { color: var(--kali-red); font-size: 10px; letter-spacing: 1px; }
+
+/* ── Install steps ── */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--kali-card);
+  border: 1px solid var(--kali-border);
+  border-radius: 6px;
+  padding: 16px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.step::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--kali-red);
+}
+
+.step-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--kali-red);
+  opacity: 0.4;
+  min-width: 32px;
+}
+
+.step-content { flex: 1; }
+
+.step-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--kali-white);
+  margin-bottom: 4px;
+}
+
+.step-cmd {
+  background: #050505;
+  border: 1px solid #1a1a1a;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--kali-green);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.step-cmd:hover { border-color: var(--kali-green); box-shadow: var(--glow-green); }
+.step-cmd .copy-icon { color: #555; font-size: 14px; transition: color 0.2s; }
+.step-cmd:hover .copy-icon { color: var(--kali-green); }
+
+/* ── Status bar ── */
+.status-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #0d0000;
+  border-top: 1px solid var(--kali-red);
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  z-index: 100;
+}
+
+.status-left { display: flex; align-items: center; gap: 16px; color: var(--kali-dim); }
+.status-left .item { display: flex; align-items: center; gap: 6px; }
+.status-right { color: var(--kali-dim); font-family: 'Rajdhani', sans-serif; }
+.status-live { color: var(--kali-green); animation: blink 2s infinite; }
+
+/* ── Animations ── */
+.fade-in { animation: fadeIn 0.8s ease forwards; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+.typing-effect {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 0.5s steps(40) forwards;
+}
+@keyframes typing { from { width:0 } to { width:100% } }
+
+/* ── Glitch title ── */
+.glitch {
+  position: relative;
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #00d4ff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch1 8s infinite linear;
+}
+.glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 #00ff88;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch2 8s infinite linear;
+}
+@keyframes glitch1 {
+  0%   { clip: rect(20px,999px,25px,0); } 5% { clip: rect(80px,999px,86px,0); }
+  10%  { clip: rect(50px,999px,56px,0); } 15%{ clip: rect(10px,999px,15px,0); }
+  20%  { clip: rect(60px,999px,66px,0); } 100%{ clip: rect(0,0,0,0); }
+}
+@keyframes glitch2 {
+  0%   { clip: rect(40px,999px,45px,0); } 5% { clip: rect(90px,999px,96px,0); }
+  10%  { clip: rect(30px,999px,36px,0); } 15%{ clip: rect(70px,999px,76px,0); }
+  20%  { clip: rect(15px,999px,20px,0); } 100%{ clip: rect(0,0,0,0); }
+}
+
+/* Copy toast */
+.toast {
+  position: fixed;
+  bottom: 60px; left: 50%; transform: translateX(-50%);
+  background: var(--kali-green);
+  color: #000;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 200;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: var(--kali-dark-red); border-radius: 3px; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .cmd-table { font-size: 11px; }
+  .cmd-table th, .cmd-table td { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-bg"></div>
+  <div class="logo-area">
+    <!-- Kali Dragon SVG -->
+    <svg class="kali-dragon" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="95" stroke="#e01f3d" stroke-width="1.5" opacity="0.3"/>
+      <circle cx="100" cy="100" r="80" stroke="#e01f3d" stroke-width="0.5" opacity="0.2"/>
+      <!-- Dragon body -->
+      <path d="M100 20 C60 30 30 60 25 100 C20 140 40 170 70 185 C85 192 95 190 100 185 C105 190 115 192 130 185 C160 170 180 140 175 100 C170 60 140 30 100 20Z" fill="#1a0000" stroke="#e01f3d" stroke-width="1.5"/>
+      <!-- Dragon head -->
+      <path d="M100 30 C80 35 65 50 62 70 C60 85 68 95 80 98 C90 100 95 95 100 90 C105 95 110 100 120 98 C132 95 140 85 138 70 C135 50 120 35 100 30Z" fill="#250000" stroke="#e01f3d" stroke-width="1.5"/>
+      <!-- Eyes -->
+      <ellipse cx="82" cy="68" rx="8" ry="10" fill="#e01f3d"/>
+      <ellipse cx="118" cy="68" rx="8" ry="10" fill="#e01f3d"/>
+      <ellipse cx="82" cy="69" rx="4" ry="6" fill="#000"/>
+      <ellipse cx="118" cy="69" rx="4" ry="6" fill="#000"/>
+      <circle cx="84" cy="67" r="2" fill="white" opacity="0.7"/>
+      <circle cx="120" cy="67" r="2" fill="white" opacity="0.7"/>
+      <!-- Nostrils -->
+      <ellipse cx="94" cy="82" rx="3" ry="2" fill="#e01f3d" opacity="0.6"/>
+      <ellipse cx="106" cy="82" rx="3" ry="2" fill="#e01f3d" opacity="0.6"/>
+      <!-- Mouth / fangs -->
+      <path d="M82 90 Q100 100 118 90" stroke="#e01f3d" stroke-width="1.5" fill="none"/>
+      <path d="M90 93 L87 105" stroke="white" stroke-width="1.5"/>
+      <path d="M110 93 L113 105" stroke="white" stroke-width="1.5"/>
+      <!-- Wings -->
+      <path d="M55 90 C30 75 10 85 15 110 C20 130 45 135 65 125 C55 110 60 95 55 90Z" fill="#1a0000" stroke="#e01f3d" stroke-width="1.2"/>
+      <path d="M145 90 C170 75 190 85 185 110 C180 130 155 135 135 125 C145 110 140 95 145 90Z" fill="#1a0000" stroke="#e01f3d" stroke-width="1.2"/>
+      <!-- Wing membrane lines -->
+      <path d="M55 90 L20 100 M55 92 L25 115" stroke="#e01f3d" stroke-width="0.6" opacity="0.5"/>
+      <path d="M145 90 L180 100 M145 92 L175 115" stroke="#e01f3d" stroke-width="0.6" opacity="0.5"/>
+      <!-- Tail -->
+      <path d="M100 185 C95 195 80 200 75 195 C90 188 98 180 100 175 C102 180 110 188 125 195 C120 200 105 195 100 185Z" fill="#1a0000" stroke="#e01f3d" stroke-width="1.2"/>
+      <!-- Scales texture -->
+      <path d="M85 120 Q100 115 115 120 Q100 125 85 120Z" fill="#e01f3d" opacity="0.2"/>
+      <path d="M82 135 Q100 130 118 135 Q100 140 82 135Z" fill="#e01f3d" opacity="0.15"/>
+      <path d="M85 150 Q100 145 115 150 Q100 155 85 150Z" fill="#e01f3d" opacity="0.1"/>
+      <!-- Horns -->
+      <path d="M85 32 L75 12 L82 30" stroke="#e01f3d" stroke-width="1.5" fill="#1a0000"/>
+      <path d="M115 32 L125 12 L118 30" stroke="#e01f3d" stroke-width="1.5" fill="#1a0000"/>
+      <!-- Glow ring -->
+      <circle cx="100" cy="100" r="95" stroke="#e01f3d" stroke-width="0.5" opacity="0.5" stroke-dasharray="4 8"/>
+    </svg>
+
+    <h1 class="logo-title glitch" data-text="KALI LINUX">KALI LINUX</h1>
+    <p class="logo-subtitle">Termux Offensive Security Environment</p>
+    <div class="author-badge">
+      <div class="dot"></div>
+      <span>Abbas Basim &nbsp;|&nbsp; <span class="academy">SMART TIME Academy</span></span>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN ── -->
+<div class="container">
+
+  <!-- Terminal Simulation -->
+  <div class="section-title">▶ LIVE TERMINAL</div>
+  <div style="margin-bottom:40px;" class="fade-in">
+    <div class="terminal-header">
+      <div class="term-dot red"></div>
+      <div class="term-dot yellow"></div>
+      <div class="term-dot green"></div>
+      <span class="term-title">kali@termux:~  –  Abbas Basim</span>
+    </div>
+    <div class="terminal-body" id="terminal-body">
+      <div><span class="prompt">┌──(</span><span class="prompt-path">kali</span><span class="prompt">㉿</span><span class="prompt-path">termux</span><span class="prompt">)-[</span><span class="prompt-git">~</span><span class="prompt">]</span></div>
+      <div><span class="prompt">└─$</span> <span class="cmd" id="typed-cmd"></span><span class="cursor" id="cursor"></span></div>
+      <div id="term-output" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- Installation Steps -->
+  <div class="section-title">▶ INSTALLATION GUIDE</div>
+  <div class="steps fade-in">
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">تنزيل السكريبت على Termux</div>
+        <div class="step-cmd" onclick="copyCmd(this, 'curl -sL https://raw.githubusercontent.com/YourRepo/abbas-kali/main/setup.sh -o setup.sh')">
+          <span class="copy-icon">📋</span>
+          <code>curl -sL https://yourserver.com/abbas_kali_setup.sh -o setup.sh</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">منح صلاحية التنفيذ</div>
+        <div class="step-cmd" onclick="copyCmd(this, 'chmod +x setup.sh')">
+          <span class="copy-icon">📋</span>
+          <code>chmod +x setup.sh</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">تشغيل سكريبت التثبيت</div>
+        <div class="step-cmd" onclick="copyCmd(this, 'bash setup.sh')">
+          <span class="copy-icon">📋</span>
+          <code>bash setup.sh</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">الدخول إلى بيئة Kali Linux</div>
+        <div class="step-cmd" onclick="copyCmd(this, 'proot-distro login kali')">
+          <span class="copy-icon">📋</span>
+          <code>proot-distro login kali</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <div class="step-title">تشغيل ZSH مع Powerlevel10k</div>
+        <div class="step-cmd" onclick="copyCmd(this, 'zsh')">
+          <span class="copy-icon">📋</span>
+          <code>zsh</code>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Feature Cards -->
+  <div class="section-title">▶ FEATURES & TOOLS</div>
+  <div class="cards-grid fade-in">
+
+    <div class="card">
+      <span class="card-icon">🐉</span>
+      <div class="card-title">Kali Linux Full</div>
+      <div class="card-desc">بيئة Kali Linux كاملة داخل Termux عبر proot-distro مع كل الأدوات الأصلية.</div>
+      <div class="tag-list">
+        <span class="tag red">proot-distro</span>
+        <span class="tag cyan">Full Kali</span>
+        <span class="tag green">Rootless</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <div class="card-title">ZSH + Powerlevel10k</div>
+      <div class="card-desc">Shell احترافي بمظهر Kali الأصلي مع autosuggestions وsyntax highlighting.</div>
+      <div class="tag-list">
+        <span class="tag red">Oh My Zsh</span>
+        <span class="tag cyan">P10k Theme</span>
+        <span class="tag green">Auto Complete</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🔍</span>
+      <div class="card-title">Recon Tools</div>
+      <div class="card-desc">nmap، whois، nikto، dirb، gobuster وأدوات المسح الشبكي الكاملة.</div>
+      <div class="tag-list">
+        <span class="tag red">Nmap</span>
+        <span class="tag cyan">Nikto</span>
+        <span class="tag green">Gobuster</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🔓</span>
+      <div class="card-title">Password Cracking</div>
+      <div class="card-desc">Hashcat، John the Ripper، Hydra مع قائمة كلمات rockyou وSecLists.</div>
+      <div class="tag-list">
+        <span class="tag red">Hashcat</span>
+        <span class="tag cyan">John</span>
+        <span class="tag green">Hydra</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🐍</span>
+      <div class="card-title">Python Hacking Suite</div>
+      <div class="card-desc">Scapy، Impacket، Paramiko، Shodan API وأدوات Python الأمنية الاحترافية.</div>
+      <div class="tag-list">
+        <span class="tag red">Scapy</span>
+        <span class="tag cyan">Impacket</span>
+        <span class="tag green">Shodan</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🖥️</span>
+      <div class="card-title">Tmux Multiplexer</div>
+      <div class="card-desc">إدارة جلسات متعددة بتصميم Kali مع ألوان حمراء وأيقونة Dragon في الـ status bar.</div>
+      <div class="tag-list">
+        <span class="tag red">Multi-Session</span>
+        <span class="tag cyan">Kali Theme</span>
+        <span class="tag green">Mouse Support</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">💣</span>
+      <div class="card-title">Metasploit Framework</div>
+      <div class="card-desc">إطار الاختراق الأشهر في العالم متاح مباشرة داخل بيئة Kali.</div>
+      <div class="tag-list">
+        <span class="tag red">MSF Console</span>
+        <span class="tag cyan">Exploits</span>
+        <span class="tag green">Payloads</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">📡</span>
+      <div class="card-title">Wireless Tools</div>
+      <div class="card-desc">Aircrack-ng، Wireshark، netcat للاختراق اللاسلكي وتحليل الشبكات.</div>
+      <div class="tag-list">
+        <span class="tag red">Aircrack</span>
+        <span class="tag cyan">Wireshark</span>
+        <span class="tag green">Netcat</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">📝</span>
+      <div class="card-title">Custom Recon Scripts</div>
+      <div class="card-desc">سكريبتات مخصصة: recon.sh وportknock.sh مكتوبة خصيصاً لبيئة Abbas.</div>
+      <div class="tag-list">
+        <span class="tag red">recon.sh</span>
+        <span class="tag cyan">portknock.sh</span>
+        <span class="tag green">Custom</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quick Commands Table -->
+  <div class="section-title">▶ QUICK COMMANDS</div>
+  <table class="cmd-table fade-in">
+    <thead>
+      <tr>
+        <th>COMMAND</th>
+        <th>DESCRIPTION</th>
+        <th>CATEGORY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="cmd-name">kali</td><td class="cmd-desc">الدخول إلى بيئة Kali Linux</td><td class="cmd-cat">CORE</td></tr>
+      <tr><td class="cmd-name">scan &lt;ip&gt;</td><td class="cmd-desc">مسح نماب كامل على الهدف</td><td class="cmd-cat">RECON</td></tr>
+      <tr><td class="cmd-name">ports &lt;ip&gt;</td><td class="cmd-desc">كشف البورتات المفتوحة</td><td class="cmd-cat">RECON</td></tr>
+      <tr><td class="cmd-name">vulnscan &lt;ip&gt;</td><td class="cmd-desc">مسح الثغرات بـ nmap scripts</td><td class="cmd-cat">VULN</td></tr>
+      <tr><td class="cmd-name">myip</td><td class="cmd-desc">عرض IP العام</td><td class="cmd-cat">NET</td></tr>
+      <tr><td class="cmd-name">recon.sh &lt;target&gt;</td><td class="cmd-desc">ريكون شامل تلقائي</td><td class="cmd-cat">SCRIPT</td></tr>
+      <tr><td class="cmd-name">portknock.sh &lt;host&gt;</td><td class="cmd-desc">كشف البورتات بـ bash</td><td class="cmd-cat">SCRIPT</td></tr>
+      <tr><td class="cmd-name">tmux</td><td class="cmd-desc">فتح جلسات متعددة</td><td class="cmd-cat">UTIL</td></tr>
+      <tr><td class="cmd-name">update</td><td class="cmd-desc">تحديث كل الحزم</td><td class="cmd-cat">SYSTEM</td></tr>
+      <tr><td class="cmd-name">msfconsole</td><td class="cmd-desc">تشغيل Metasploit (داخل kali)</td><td class="cmd-cat">EXPLOIT</td></tr>
+      <tr><td class="cmd-name">sqlmap -u &lt;url&gt;</td><td class="cmd-desc">اختراق SQL Injection</td><td class="cmd-cat">WEBPENTEST</td></tr>
+      <tr><td class="cmd-name">hydra</td><td class="cmd-desc">هجمات brute force</td><td class="cmd-cat">CRACK</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- ── STATUS BAR ── -->
+<div class="status-bar">
+  <div class="status-left">
+    <div class="item"><span class="status-live">●</span> <span>ONLINE</span></div>
+    <div class="item">🐉 Kali Termux v2.0</div>
+    <div class="item">Abbas Basim</div>
+  </div>
+  <div class="status-right" id="clock">--:--:--</div>
+</div>
+
+<!-- Copy Toast -->
+<div class="toast" id="toast">✓ COPIED</div>
+
+<script>
+// ── Clock ──
+function updateClock() {
+  const now = new Date();
+  const t = now.toLocaleTimeString('en-US', {hour12:false});
+  document.getElementById('clock').textContent = t;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Terminal Typing Simulation ──
+const commands = [
+  {
+    cmd: "nmap -sC -sV 192.168.1.1",
+    output: [
+      {text: "Starting Nmap 7.94 ( https://nmap.org )", cls: "output"},
+      {text: "Nmap scan report for 192.168.1.1", cls: "output"},
+      {text: "PORT     STATE SERVICE   VERSION", cls: "output"},
+      {text: "22/tcp   open  ssh       OpenSSH 8.2", cls: "output success"},
+      {text: "80/tcp   open  http      Apache 2.4.41", cls: "output success"},
+      {text: "443/tcp  open  ssl/https nginx 1.18.0", cls: "output success"},
+      {text: "3306/tcp open  mysql     MySQL 8.0.28", cls: "output warning"},
+    ]
+  },
+  {
+    cmd: "proot-distro login kali",
+    output: [
+      {text: "[*] Entering Kali Linux environment...", cls: "output info"},
+      {text: "┌──(root㉿kali)-[~]", cls: "output success"},
+      {text: "└─# Welcome to Kali Linux on Termux", cls: "output success"},
+      {text: "    Abbas Basim | SMART TIME Academy", cls: "output info"},
+    ]
+  },
+  {
+    cmd: "sqlmap -u http://target.com/page.php?id=1 --dbs",
+    output: [
+      {text: "[*] starting @ 23:14:02", cls: "output"},
+      {text: "[+] target URL appears to be INJECTABLE", cls: "output success"},
+      {text: "[+] retrieved: information_schema", cls: "output success"},
+      {text: "[+] retrieved: target_database", cls: "output warning"},
+    ]
+  },
+  {
+    cmd: "hydra -l admin -P wordlists/rockyou.txt ssh://192.168.1.1",
+    output: [
+      {text: "Hydra v9.4 (c) 2022 van Hauser/THC", cls: "output"},
+      {text: "[DATA] attacking ssh://192.168.1.1:22/", cls: "output info"},
+      {text: "[22][ssh] host: 192.168.1.1   login: admin   password: p@ssw0rd", cls: "output success"},
+      {text: "1 of 1 target successfully completed", cls: "output success"},
+    ]
+  }
+];
+
+let cmdIdx = 0;
+let charIdx = 0;
+let outputIdx = 0;
+let phase = 'typing'; // typing | waiting | outputting | clearing
+let timer;
+
+function runTerminal() {
+  const termOut = document.getElementById('term-output');
+  const typedCmd = document.getElementById('typed-cmd');
+  const cur = commands[cmdIdx];
+
+  if (phase === 'typing') {
+    if (charIdx < cur.cmd.length) {
+      typedCmd.textContent = cur.cmd.substring(0, ++charIdx);
+      timer = setTimeout(runTerminal, 50 + Math.random() * 30);
+    } else {
+      phase = 'waiting';
+      timer = setTimeout(runTerminal, 600);
+    }
+  } else if (phase === 'waiting') {
+    termOut.innerHTML = '';
+    outputIdx = 0;
+    phase = 'outputting';
+    timer = setTimeout(runTerminal, 100);
+  } else if (phase === 'outputting') {
+    if (outputIdx < cur.output.length) {
+      const line = cur.output[outputIdx++];
+      const div = document.createElement('div');
+      div.className = line.cls;
+      div.textContent = line.text;
+      div.style.animation = 'fadeIn 0.2s ease';
+      termOut.appendChild(div);
+      timer = setTimeout(runTerminal, 200);
+    } else {
+      timer = setTimeout(() => {
+        phase = 'clearing';
+        runTerminal();
+      }, 3000);
+    }
+  } else if (phase === 'clearing') {
+    typedCmd.textContent = '';
+    termOut.innerHTML = '';
+    charIdx = 0;
+    cmdIdx = (cmdIdx + 1) % commands.length;
+    phase = 'typing';
+    timer = setTimeout(runTerminal, 800);
+  }
+}
+
+runTerminal();
+
+// ── Copy Command ──
+function copyCmd(el, text) {
+  const code = el.querySelector('code');
+  const content = text || code.textContent;
+  navigator.clipboard.writeText(content).catch(() => {});
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>
